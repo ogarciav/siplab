@@ -1,0 +1,18 @@
+citHeader("To cite siplab in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Siplab, a spatial individual-based plant modelling system",
+  author       = personList(as.person("Oscar Garcia")),
+  journal      = "Computational Ecology and Software",
+  year         = "2014",
+  volume       = "4",
+  number       = "4",
+  pages        = "215--222",
+  url          = "http://www.iaees.org/publications/journals/ces/online-version.asp",
+
+  textVersion  =
+  paste("Oscar Garcia (2014).",
+        "Siplab, a spatial individual-based plant modelling system.",
+        "Computational Ecology and Software 4(4), 215-222.",
+        "URL http://www.iaees.org/publications/journals/ces/online-version.asp .")
+)
