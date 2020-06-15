@@ -1,0 +1,75 @@
+% Compile with 'R CMD Sweave xx.Rnw'
+%   or 'Rscript -e "library(knitr);knit(xx.Rnw)"'
+% In the package DESCRIPTION file specify:
+%   VignetteBuilder: knitr
+%   Suggests: knitr
+% For RStudio installation to compile vignettes use
+%   'devtools::install(build_vignettes = TRUE)' 
+
+\documentclass[12]{article}
+
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{"Hegyi's Competition Index"}
+
+\usepackage[utf8]{inputenc}
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+%\usepackage[parfill]{parskip}     % empty line between paragraphs, no indent
+
+% --- math  ---
+\usepackage{amsmath,bm}
+\newcommand{\vc}[1]{\bm{#1}}
+\newcommand{\mat}[1]{{\mathrm #1}}  % or \bf
+\newcommand{\der}[2]{\frac{{\mathrm d}#1}{{\mathrm d}#2}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{{\mathrm d}#1/{\mathrm d}#2}
+\newcommand{\dd}{\,{\mathrm d}}
+%\newcommand{\mod}[1]{_{(\mbox{\scriptsize mod }#1)}} % see also pmod
+\newcommand{\diag}{\mathop{\mathgroup\symoperators diag}\nolimits}
+% or \newcommand{\diag}{\,\mbox{diag}}
+\newcommand{\abs}{\mathop{\mathgroup\symoperators abs}\nolimits}
+% or \newcommand{\abs}{\mbox{abs}}
+\providecommand{\e}{\mathrm e} % included in amsmath?
+% ---  bibliography  ---
+%\usepackage{natbib}
+%default:  \bibpunct{(}{)}{;}{a}{,}{,}
+%\bibliographystyle{elsart-harv}
+
+\hypersetup{
+ pdfauthor={Oscar Garcia},%
+ pdftitle={{TITLE}%
+ Hegyi's Competition Index
+}%
+%%,pdfkeywords={}%
+}
+
+\title{Hegyi's Competition Index}
+\author{Oscar Garc\'ia}
+
+
+\begin{document}
+\maketitle
+
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=72)
+@
+
+
+Yaddayadda\ldots
+<<>>=
+1 + 1
+@
+Bye for now!
+
+%\bibliography{} \addcontentsline{toc}{section}{References}
+\end{document}

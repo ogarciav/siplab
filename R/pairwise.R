@@ -1,5 +1,6 @@
 pairwise <-
-function(plants, maxN=NULL, maxR=NULL, select=NULL, selpar=NULL, kernel, kerpar=NULL) {
+function(plants, maxN=NULL, maxR=NULL, select=NULL, selpar=NULL,
+    kernel, kerpar=NULL) {
 # Pairwise competition indices
     # Competition index computation
     cindex <- function(Y, current, dists, dranks,
@@ -19,8 +20,11 @@ function(plants, maxN=NULL, maxR=NULL, select=NULL, selpar=NULL, kernel, kerpar=
         else return(0)
     } # end of function
     # Get indices
+    if(is.null(maxN) && is.null(maxR))
+        maxN <- plants$n  # applynbd requires at least one not null
     marks(plants) <- data.frame(marks(plants), cindex=0)
-    marks(plants)$cindex <- applynbd(plants, cindex, N=maxN, R=maxR, exclude=TRUE,
-            select=select, selpar=selpar, kernel=kernel, kerpar=kerpar)
+    marks(plants)$cindex <- applynbd(plants, cindex, N=maxN, R=maxR,
+        exclude=TRUE, select=select, selpar=selpar, kernel=kernel,
+        kerpar=kerpar)
     return(plants)
 }

@@ -1,13 +1,13 @@
 Package: siplab
+Version: 1.5
+Date: 2020-06-30
 Type: Package
 Title: Spatial Individual-Plant Modelling
-Version: 1.4
-Date: 2019-03-31
-Author: Oscar Garcia
-Maintainer: Oscar Garcia <garcia@dasometrics.net>
-Description: A platform for experimenting with spatially explicit individual-based vegetation models.
-License: GPL (>= 2)
+Authors@R: person("Oscar", "Garcia", email = "garcia@dasometrics.net", role = c("aut","cre"), comment = c(ORCID = "0000-0002-8995-1341"))
 Depends: spatstat (>= 1.36-0)
-URL: http://forestgrowth.unbc.ca/siplab
-NeedsCompilation: no
-Packaged: 2019-04-01 01:07:18 UTC; oscar
+Suggests: knitr
+VignetteBuilder: knitr
+Description: A platform for computing competition indices and experimenting with spatially explicit individual-based vegetation models. Garcia (2014) <https://www.researchgate.net/publication/267695426>
+License: GPL (>= 2)
+URL: http://forestgrowth.unbc.ca/siplab/
+BugReports: https://github.com/ogarciav/siplab/issues
