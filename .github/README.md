@@ -9,31 +9,23 @@ An R platform for computing competition indices and experimenting with spatially
 
 ### Installation
 
-Install the stable version from CRAN:
-'''R
-  install.packages("siplab")
-'''
-or from the RStudio menus: *Tools > Install Packages... > siplab* 
+Install the stable version from CRAN:  *install.packages("siplab")*
+ or from the RStudio menus: *Tools > Install Packages... > siplab* 
 
-For testing the bleeding edge development version from here use
-'''R
-  devtools::install_github("ogarciav/siplab")
-'''
+For testing the bleeding edge development version from here use  *devtools::install_github("ogarciav/siplab")*
 
 ### Quick demo
 
 Computing Hegyi's competition index:
-'''R
-hegyi <- pairwise(spruces, maxR=6, kernel=powers.ker)
-head(marks(hegyi))
-'''
+
+    hegyi <- pairwise(spruces, maxR=6, kernel=powers.ker)
+    head(marks(hegyi))
 
 Areas of Brown's APAs (aka Dirichlet cells or Voronoi polygons):
-'''R
-apa.inf <- function(dx, dy, ...) {100 - (dx^2 + dy^2)}
-apa <- assimilation(spruces, influence=apa.inf)
-head(marks(apa))
-'''
+
+    apa.inf <- function(dx, dy, ...) {100 - (dx^2 + dy^2)}
+    apa <- assimilation(spruces, influence=apa.inf)
+    head(marks(apa))
 
 ### References:
 * García, O. (2014). "Siplab, a spatial individual-based plant modelling system". *Computational Ecology and Software 4*(4): 215-222. <https://www.researchgate.net/publication/267695426>
