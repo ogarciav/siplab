@@ -20,7 +20,7 @@ function(plants, # marked point pattern (class ppp)
     marks <- as.data.frame(marks(plants))
     # First pass, acccumulate partition function denominator
     infi <- function(x, y) influence(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = infpar)
+                                     marks = marks[i, ], par = infpar)
     denom <- as.im(0, resource)
     for(i in 1:npoints(plants)) {
         phi <- as.im(infi, resource)
@@ -30,13 +30,18 @@ function(plants, # marked point pattern (class ppp)
     }
     if(plot) plot(denom, main=NULL)
     # Second pass, get assimilation index for each plant
-    effi <- function(x, y) efficiency(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = effpar)
+    if(is.null(effpar)) {
+        effi <- function(x, y) efficiency(dx = x - xplant[i], dy = y - yplant[i],
+                                          marks = marks[i, ])
+    } else {
+        effi <- function(x, y) efficiency(dx = x - xplant[i], dy = y - yplant[i],
+                                          marks = marks[i, ], par = effpar)
+    }
     for(i in 1:npoints(plants)) {
         phi <- as.im(infi, resource)
         if(is.infinite(asym)) part <- eval.im((phi >= denom) * (phi > 0))
         else if(asym > 0) part <- eval.im(phi^asym / (denom + (denom == 0)))
-                # (avoid division by 0)
+                                                    # (avoid division by 0)
         else part <- eval.im((phi > 0) / (denom + (denom == 0))) # asym == 0
         eff <- as.im(effi, resource)
         assim <- eval.im(eff * part * resource)

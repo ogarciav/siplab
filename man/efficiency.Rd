@@ -15,7 +15,7 @@ Efficiency Functions
 Compute efficiency values depending on distance and plant marks, for use in \code{\link{assimilation}}.
 }
 \usage{
-flat.eff(dx, dy, marks, par = NULL)
+flat.eff(dx, dy, marks)
 
 tass.eff(dx, dy, marks, par = list(b = 3.52 * 0.975, c = 6.1,
     smark = 1))
@@ -40,12 +40,12 @@ Plant mark information.
 }
   \item{par}{
 %%     ~~Describe \code{par} here~~
-Vector or list of parameters.
+Optional vector or list of parameters.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} must be given in the argument \code{effpar} of \code{assimilation}, they are shown here as examples.
+The values of \code{par} are passed in the argument \code{effpar} of \code{assimilation}, they are shown here as examples.
 
 \code{smark} in \code{par} indicates the location of the plant size variable in \code{marks}. It can be a data frame column number, or a string id like "height".
 

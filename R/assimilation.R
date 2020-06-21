@@ -25,7 +25,7 @@ function(plants, # marked point pattern (class ppp)
     marks <- as.data.frame(marks(plants))
     # First pass, acccumulate partition function denominator
     infi <- function(y, x) influence(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = infpar)
+                                     marks = marks[i, ], par = infpar)
     denom <- 0 * resmatrix
     for(i in 1:npoints(plants)) {
         phi <- outer(yrow, xcol, infi)
@@ -36,14 +36,19 @@ function(plants, # marked point pattern (class ppp)
     }
     if(plot) plot(as.im(denom, resource), main=NULL)
     # Second pass, get assimilation index for each plant
-    effi <- function(y, x) efficiency(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = effpar)
+    if(is.null(effpar) {
+        effi <- function(y, x) efficiency(dx = x - xplant[i], dy = y - yplant[i],
+                                          marks = marks[i, ])
+    } else {
+        effi <- function(y, x) efficiency(dx = x - xplant[i], dy = y - yplant[i],
+                                          marks = marks[i, ], par = effpar)
+    }
     for(i in 1:npoints(plants)) {
         phi <- outer(yrow, xcol, infi)
         if(is.infinite(asym)) part <- (phi >= denom) * (phi > 0)
         else if(asym == 1) part <- phi / (denom + (denom == 0))
         else if(asym > 0) part <- phi^asym / (denom + (denom == 0))
-                # avoid division by 0
+                                            # avoid division by 0
         else part <- (phi > 0) / (denom + (denom == 0)) # asym == 0
         eff <- outer(yrow, xcol, effi)
         assim <- eff * part * resmatrix
