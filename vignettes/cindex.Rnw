@@ -85,7 +85,7 @@ Now, for computations in \pkg{siplab}, we need to convert (back) the data to the
 trees <- ppp(trees$x, trees$y, c(0,56), c(0,38), marks=trees$dbh)
 summary(trees)
 @
-It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.
+The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.
 
 An alternative is to use instead \code{trees <- as.ppp(trees, c(0,56.0,38))}.
 
@@ -112,12 +112,12 @@ Thus, choosing 6 m for $R_{\mbox{max}}$, the index can be obtained from
 hegyi <- pairwise(trees, maxR=6, kernel=powers.ker,
     kerpar=list(pi=1, pj=1, pr=1, smark=1))
 @
-The list \code{kerpar} specifies the kernel parameter values and size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kernel} could be omitted here because these values happen to be the default in \code{powers.ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
+The list \code{kerpar} specifies the kernel parameter values and size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default in \code{link{powers.ker}}. The computed indices are returned as an additional column \code{cindex} in the marks:
 <<>>=
 head(marks(hegyi))
 @
 
-Note: In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyi.orig)} (no \code{kerpar} needed).
+Note: In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig.ker)} (no \code{kerpar} needed).
 
 
 \section{Edge effects}

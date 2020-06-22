@@ -34,11 +34,11 @@ Distance from the edges.
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-When computing assimilation or competition indices, those near the edges of the study region are distorted because the outside is empty. Common solutions to this problem are not to use indices computed for plants near the edges, or (with rectangular regions) to attach translated copies, thus changing the topology into a torus. This function implements both strategies. When expanding, the part of the copies to be used can be specified to avoid unnecessary computation.
+When computing assimilation or competition indices, those near the edges of the study region are distorted because the outside is empty. Common solutions to this problem are not to use indices computed for plants near the edges, or (with rectangular regions) to attach translated copies, thus changing the topology intothat of a torus. This function implements both strategies. When expanding, the extentt of the copies to be used can be specified to avoid unnecessary computation.
 
-Typically, in the first case the indices are computed for the full pattern, and then the edges are discarded using \code{edges} with a negative \code{width}. In the second case, the point pattern is first expanded with \code{edges(plants, width)}, the indices are computed for the expanded pattern, and then the result is restricted to the original size with \code{edges(result, -width)}. 
+Typically, in the first case the indices are computed for the full pattern, and then the edges are discarded using \code{edges} with a negative \code{width}. In the second case, the point pattern is first expanded with \code{edges(plants, width)}, the indices are computed for the expanded pattern, and then the resulta are restricted to the original size with \code{edges(result, -width)}. 
 
-\code{core} returns a logical vector indicating which plants are at more than the given distance from the edges. With a negative \code{width}, \code{edges(plants, width)} is the same as \code{plants[core(plants, -width)]}.
+\code{core} returns a logical vector indicating which plants are at more than the given distance from the edges. Thus, \code{plants[core(plants, width)]} is equivalent to \code{edges(plants, -width)}.
 }
 \value{
 %%  ~Describe the value returned
@@ -54,11 +54,11 @@ If \code{width} is positive, the pattern is first expanded by surrounding it wit
 
 If \code{width} = 0, \code{plants} is returned unchanged.
 
-\code{core} returns a logical vector with \code{TRUE} for the plants that are at more than the given distance from the edges, and \code{FALSE} otherwise.
+\code{core} returns a logical vector with \code{TRUE} for the plants that are at more than the given distance from the edges, and \code{FALSE} for the rest.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{http://forestgrowth.unbc.ca/siplab}
+\url{https://ogarciav.github.com/siplab}
 }
 \author{
 %%  ~~who you are~~

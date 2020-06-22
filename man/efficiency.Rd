@@ -28,15 +28,15 @@ gnomon.eff(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 \arguments{
   \item{dx}{
 %%     ~~Describe \code{dx} here~~
-Vector of x-distances. Points x-coordinates minus plant x-coordinate.
+Vector of x-distances. Coordinates x for a number of points minus coordinate x of a target plant.
 }
   \item{dy}{
 %%     ~~Describe \code{dy} here~~
-Vector of y-distances. Points y-coordinates minus plant y-coordinate.
+Vector of y-distances. Coordinates y for a number of points minus coordinate y of a target plant.
 }
   \item{marks}{
 %%     ~~Describe \code{marks} here~~
-Plant mark information.
+Mark data for the target plant.
 }
   \item{par}{
 %%     ~~Describe \code{par} here~~
@@ -45,9 +45,9 @@ Optional vector or list of parameters.
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} are passed in the argument \code{effpar} of \code{assimilation}, they are shown here as examples.
+The values of \code{par} are taken from the argument \code{effpar} of \code{assimilation}, if not \code{NULL}.
 
-\code{smark} in \code{par} indicates the location of the plant size variable in \code{marks}. It can be a data frame column number, or a string id like "height".
+\code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
 \code{flat.eff} returns 1, independently of plant size or distance.
 
@@ -63,7 +63,7 @@ Vector of efficiency values, of length equal to the length of dx and dy.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{http://forestgrowth.unbc.ca/siplab}
+\url{https://ogarciav.github.com/siplab}
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
 }

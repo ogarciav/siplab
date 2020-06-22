@@ -28,15 +28,15 @@ gnomon.inf(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 \arguments{
   \item{dx}{
 %%     ~~Describe \code{dx} here~~
-Vector of x-distances. Points x-coordinates minus plant x-coordinate.
+Vector of x-distances. Coordinates x for a number of points minus coordinate x of a target plant.
 }
   \item{dy}{
 %%     ~~Describe \code{dy} here~~
-Vector of y-distances. Points y-coordinates minus plant y-coordinate.
+Vector of y-distances. Coordinates y for a number of points minus coordinate y of a target plant.
 }
   \item{marks}{
 %%     ~~Describe \code{marks} here~~
-Plant mark information.
+Mark data for the target plant.
 }
   \item{par}{
 %%     ~~Describe \code{par} here~~
@@ -45,11 +45,11 @@ List of parameters.
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} must be given in the argument \code{infpar} of \code{assimilation}, they are shown here as examples.
+The values of \code{par} are taken from the argument \code{infpar} of \code{assimilation}. The defaults here are examples, they are not normally used.
 
-\code{smark} in \code{par} indicates the location of the plant size variable in \code{marks}. It can be a data frame column number, or a string id like "height".
+\code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
-Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point distance \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)}. Then the influence functions are:
+Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point distance \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)}. Then the built-in influence functions are:
 \describe{
 \item{\code{zoi.inf}:}{1 if \eqn{R < k S}, 0 otherwise}
 
@@ -59,6 +59,7 @@ Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point dista
 
 \item{\code{gnomon.inf}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
 }
+Other influence functions can be written following these examples.
 }
 \value{
 %%  ~Describe the value returned
@@ -70,7 +71,7 @@ Vector of influence values, of length equal to the length of dx and dy.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{http://forestgrowth.unbc.ca/siplab}
+\url{https://ogarciav.github.com/siplab}
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
 }
