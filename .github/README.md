@@ -18,7 +18,8 @@ For testing the bleeding-edge development version from here use  `devtools::inst
 
 Computing Hegyi's competition index:
 ```r
-hegyi <- pairwise(spruces, maxR=6, kernel=powers.ker)
+hegyi <- pairwise(spruces, maxR=6, kernel=powers.ker,
+    kerpar=list(pi=1, pj=1, pr=1, smark=1))
 head(marks(hegyi))
 ```
 
