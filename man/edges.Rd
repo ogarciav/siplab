@@ -58,7 +58,7 @@ If \code{width} = 0, \code{plants} is returned unchanged.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{https://ogarciav.github.com/siplab}
+\url{https://github.com/ogarciav/siplab}
 }
 \author{
 %%  ~~who you are~~

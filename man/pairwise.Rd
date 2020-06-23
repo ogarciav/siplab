@@ -65,7 +65,7 @@ Returns the input point pattern \code{plants}, with the marks replaced by a data
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{https://ogarciav.github.com/siplab}
+\url{https://github.com/ogarciav/siplab}
 
 \enc{García}{Garcia}, O. \dQuote{Siplab, a spatial individual-based plant modelling system}. Computational Ecology and Software 4(4), 215-222. 2014.
 }

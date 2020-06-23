@@ -9,7 +9,7 @@
 \documentclass[12]{article}
 
 %\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{"Computing Hegyi's (and other) Competition Indices"}
+%\VignetteIndexEntry{Computing Hegyi's (and other) Competition Indices}
 
 \usepackage[utf8]{inputenc}
 \usepackage{charter}

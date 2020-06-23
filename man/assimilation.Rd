@@ -85,7 +85,7 @@ Returns the input point pattern \code{plants}, with the marks replaced by a data
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{https://ogarciav/github/siplab}.
+\url{https://github.com/ogarciav/siplab}.
 
 \enc{García}{Garcia}, O. (2013) \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
 }

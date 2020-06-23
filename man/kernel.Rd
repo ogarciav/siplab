@@ -66,7 +66,7 @@ Vector of length equal to the length of \code{dists}.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{https://ogarciav.github.com/siplab}
+\url{https://github.com/ogarciav/siplab}
 
 Burkhart, H. E. and \enc{Tomé}{Tome}, M. (2012) \emph{Modeling Forest Trees and Stands}. Springer.
 

@@ -36,7 +36,7 @@ function(plants, # marked point pattern (class ppp)
     }
     if(plot) plot(as.im(denom, resource), main=NULL)
     # Second pass, get assimilation index for each plant
-    if(is.null(effpar) {
+    if(is.null(effpar)) {
         effi <- function(y, x) efficiency(dx = x - xplant[i], dy = y - yplant[i],
                                           marks = marks[i, ])
     } else {

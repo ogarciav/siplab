@@ -28,15 +28,15 @@ gnomon.eff(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 \arguments{
   \item{dx}{
 %%     ~~Describe \code{dx} here~~
-Vector of x-distances. Coordinates x for a number of points minus coordinate x of a target plant.
+Vector of x-distances. Coordinates x for a number of points minus coordinate x of the subject plant.
 }
   \item{dy}{
 %%     ~~Describe \code{dy} here~~
-Vector of y-distances. Coordinates y for a number of points minus coordinate y of a target plant.
+Vector of y-distances. Coordinates y for a number of points minus coordinate y of the subject plant.
 }
   \item{marks}{
 %%     ~~Describe \code{marks} here~~
-Mark data for the target plant.
+Mark data for the subject plant.
 }
   \item{par}{
 %%     ~~Describe \code{par} here~~
@@ -63,7 +63,7 @@ Vector of efficiency values, of length equal to the length of dx and dy.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{https://ogarciav.github.com/siplab}
+\url{https://github.com/ogarciav/siplab}
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
 }
