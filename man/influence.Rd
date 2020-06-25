@@ -55,7 +55,7 @@ Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point dista
 
 \item{\code{tass.inf}:}{\eqn{\max\{0, \, S - c[\exp(R/b) - 1]\}}{max{0, S - c[exp(R/b) - 1]}}}
 
-\item{\code{gates.inf}:}{\eqn{\max\{0, \, [(S/b)^a - R^a]^{1/a}\}}{max{0, [(S/b)^a - R^a]^(1/a)}}}
+\item{\code{gates.inf}:}{\eqn{\max\{0, \, [S^a - (b R)^a]^{1/a}\}}{max{0, [S^a - (bR)^a]^(1/a)}}}
 
 \item{\code{gnomon.inf}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
 }
