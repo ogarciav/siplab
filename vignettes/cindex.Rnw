@@ -9,7 +9,7 @@
 \documentclass[12]{article}
 
 %\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Computing Hegyi's (and other) Competition Indices}
+%\VignetteIndexEntry{1. Computing Hegyi's (and other) Competition Indices}
 
 \usepackage[utf8]{inputenc}
 \usepackage{charter}
@@ -41,7 +41,7 @@
 \hypersetup{
  pdfauthor={Oscar Garcia},%
  pdftitle={{TITLE}%
- Computing Hegyi's (and other) Competition Indices
+ 1. Computing Hegyi's (and other) Competition Indices
 }%
 %%,pdfkeywords={}%
 }
@@ -50,7 +50,7 @@
 \newcommand{\code}[1]{\texttt{#1}}
 
 
-\title{Computing Hegyi's (and other) Competition Indices}
+\title{1. Computing Hegyi's (and other) Competition Indices}
 \author{Oscar Garc\'ia}
 \date{}
 

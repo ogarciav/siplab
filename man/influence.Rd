@@ -45,7 +45,11 @@ List of parameters.
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} are taken from the argument \code{infpar} of \code{assimilation}. The defaults here are examples, they are not normally used.
+The user can program her/his own influence function. It must take the arguments \code{dx}, \code{dy}, \code{marks}, and optionally \code{par}.
+
+Influence function values are normally non-negative. Otherwise, they are set to 0 in \code{assimilation}.
+
+The values of \code{par} are taken from the argument \code{infpar} of \code{assimilation}, if not \code{NULL}. Otherwise the default is used.
 
 \code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
