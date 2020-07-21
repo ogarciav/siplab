@@ -13,14 +13,12 @@ This is the main function in \pkg{siplab} for computing assimilation indices. Op
 }
 \usage{
 assimilation(plants, pixsize = 0.2, resource = 1, influence =
-    gnomon.inf, infpar = list(a = 1, b = 4, smark = 1), asym = Inf,
-    efficiency = flat.eff, effpar = NULL, plot = TRUE, afree =
-    FALSE, centroid = FALSE)
+    gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
+    effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 
 assimilation.pix(plants, pixsize = 0.2, resource = 1, influence =
-    gnomon.inf, infpar = list(a = 1, b = 4, smark = 1), asym = Inf,
-    efficiency = flat.eff, effpar = NULL, plot = TRUE, afree =
-    FALSE, centroid = FALSE)
+    gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
+    effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

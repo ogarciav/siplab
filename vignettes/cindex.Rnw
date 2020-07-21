@@ -15,9 +15,9 @@
 \usepackage{charter}
 \usepackage[T1]{fontenc}
 \usepackage{url}
-\usepackage{hyperref}
+\usepackage[breaklinks]{hyperref}
 \hypersetup{pdfstartview={FitH -32768},pdfborder={0 0 0},
-            bookmarksopen,breaklinks}
+            bookmarksopen}
 
 % --- math  ---
 \usepackage{amsmath,bm}
@@ -50,9 +50,9 @@
 \newcommand{\code}[1]{\texttt{#1}}
 
 
-\title{1. Computing Hegyi's (and other) Competition Indices}
-\author{Oscar Garc\'ia}
-\date{}
+\title{Computing Hegyi's (and other) Competition Indices}
+\author{\pkg{siplab}, Vignette \#1}  % Oscar Garc\'ia
+\date{Draft, \today}
 
 \begin{document}
 \maketitle
@@ -64,7 +64,7 @@ options(formatR.arrow=TRUE,width=65)
 
 The competition index of \citet{hegyi} is one of the most popular in the forest modelling literature. I show here how to compute it with \pkg{siplab}. Pointers are also given for computing any other index based on pairwise tree interactions. These are the most common indices in individual-tree distance-dependent (\emph{aka} spatially explicit) growth models, and can be handled by function \code{pairwise}.
 
-\section{Data}
+\section*{Data}
 \label{sec:data}
 
 Let us use the \code{spruces} data set included in the \pkg{spatstat} package. It contains measurements for 134 trees in a 56$\times$38 m sample plot. These data are already in the required \code{ppp} format, but for this example pretend that they are given as a simple data frame called \code{trees}:
@@ -85,11 +85,12 @@ Now, for computations in \pkg{siplab}, we need to convert (back) the data to the
 trees <- ppp(trees$x, trees$y, c(0,56), c(0,38), marks=trees$dbh)
 summary(trees)
 @
-The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.
+The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.  In addition to dimensions it may be useful to include, for instance, tree and species codes.
 
 An alternative is to use instead \code{trees <- as.ppp(trees, c(0,56.0,38))}.
 
-\section{The index}
+
+\section*{The index}
 \label{sec:index}
 
 The commonly used form of Hegyi's index for a target tree $i$ is
@@ -120,7 +121,7 @@ head(marks(hegyi))
 Note: In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig.ker)} (no \code{kerpar} needed).
 
 
-\section{Edge effects}
+\section*{Edge effects}
 \label{sec:edge}
 
 Trees near edges tend to have abnormally low competition indices, because competitors outside the plot are missing. Therefore, one may want to exlude such trees from the results. The \code{edges} function can be used to keep only trees not closer than some distance from the edges, here 6 m:
