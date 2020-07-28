@@ -45,10 +45,11 @@ Maintainer: O. Garcia <garcia@dasometrics.net>
 \url{http://forestgrowth.unbc.ca/siplab} (no longer maintained).
 
 \enc{García}{Garcia}, O. \dQuote{Siplab, a spatial individual-based plant modelling system}. Computational Ecology and Software 4(4), 215-222. 2014.
-(\url{https://www.researchgate.net/publication/267695426}).
+(\url{http://www.iaees.org/publications/journals/ces/articles/2014-4(4)/2014-4(4).asp}).
+% https://www.researchgate.net/publication/267695426
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
-(\url{https://www.researchgate.net/publication/266618517}).
+(\url{http://www.mcfns.com/index.php/Journal/article/view/6_36}).
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 %\keyword{ package }
@@ -59,7 +60,7 @@ Example \pkg{siplab} data sets: \code{\link{boreasNP}}, \code{\link{boreasNS}}, 
 
 Some \pkg{spatstat} standard data sets may also be of interest: \code{finpines}, \code{longleaf}, \code{spruces}, \code{waka}.
 
-For a gentle introduction try the vignettes. E. g., in R type \code{help.start()} to open the help browser, and navigate to Packages > siplab > Vignettes.
+For tutorials try the vignettes. E. g., in R type \code{help.start()} to open the help browser, and navigate to Packages > siplab > Vignettes.
 }
 \examples{
 %~~ simple examples of the most important functions ~~

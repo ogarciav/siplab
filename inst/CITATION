@@ -8,11 +8,10 @@ citEntry(entry = "Article",
   volume       = "4",
   number       = "4",
   pages        = "215--222",
-  url          = "http://www.iaees.org/publications/journals/ces/online-version.asp",
-
+  url          = "http://www.iaees.org/publications/journals/ces/articles/2014-4(4)/2014-4(4).asp",
   textVersion  =
   paste("Oscar Garcia (2014).",
         "Siplab, a spatial individual-based plant modelling system.",
         "Computational Ecology and Software 4(4), 215-222.",
-        "URL http://www.iaees.org/publications/journals/ces/online-version.asp .")
+        "URL http://www.iaees.org/publications/journals/ces/articles/2014-4(4)/2014-4(4).asp .")
 )

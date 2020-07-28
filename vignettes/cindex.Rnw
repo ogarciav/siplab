@@ -73,18 +73,21 @@ library(siplab)
 trees <- as.data.frame(spruces)
 summary(trees)
 @
-Typically, the data would have been read from a data file by a command such as \code{tres <- read.csv("data.csv")}. The \code{x} and \code{y} columns are tree coordinates, in meters, and \code{marks} are diameters at breast height (dbh), also in meters. For a more conventional appearance, rename and convert the diameters to centimeters:
+\noindent
+Typically, the data would have been read from a data file by a command such as \code{trees <- read.csv("data.csv")}. The \code{x} and \code{y} columns are tree coordinates, in meters, and \code{marks} are diameters at breast height (dbh), also in meters. For a more conventional appearance, rename and convert the diameters to centimeters:
 <<>>=
 names(trees)[3] <- "dbh"
 trees$dbh <- trees$dbh * 100
 head(trees)
 @
+\noindent
 
 Now, for computations in \pkg{siplab}, we need to convert (back) the data to the form of a \pkg{spatstat} point pattern object of class \code{ppp}. This is done with function \code{ppp}, passing as arguments the coordinate vectors, the plot dimensions (``window''), and the marks (dbh):
 <<>>=
 trees <- ppp(trees$x, trees$y, c(0,56), c(0,38), marks=trees$dbh)
 summary(trees)
 @
+\noindent
 The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.  In addition to dimensions it may be useful to include, for instance, tree and species codes.
 
 An alternative is to use instead \code{trees <- as.ppp(trees, c(0,56.0,38))}.
@@ -106,29 +109,32 @@ Here we can use a built-in kernel called \code{powers.ker}, which represents the
     \frac{S_j^{p_j} / S_i^{p_i}}{R_{ij}^{p_r}} \;,
 \end{equation}
 where $S$ is some measure of tree size.
-Hegyi's index corresponds to the special case $p_i = p_j = p_r = 1$. Enter \code{?kernel} for other built-ins or for how to write your own.
+Hegyi's index corresponds to the special case $p_i = p_j = p_r = 1$. Type \code{?kernel} for other built-ins or for how to write your own.
 
-Thus, choosing 6 m for $R_{\mbox{max}}$, the index can be obtained from
+Thus, choosing 6 meters for $R_{\mbox{max}}$, the index can be obtained from
 <<>>=
 hegyi <- pairwise(trees, maxR=6, kernel=powers.ker,
     kerpar=list(pi=1, pj=1, pr=1, smark=1))
 @
-The list \code{kerpar} specifies the kernel parameter values and size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default in \code{link{powers.ker}}. The computed indices are returned as an additional column \code{cindex} in the marks:
+\noindent
+The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default in \code{powers.ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
 <<>>=
 head(marks(hegyi))
 @
+\noindent
 
-Note: In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig.ker)} (no \code{kerpar} needed).
+In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig.ker)} (no \code{kerpar} needed).
 
 
 \section*{Edge effects}
 \label{sec:edge}
 
-Trees near edges tend to have abnormally low competition indices, because competitors outside the plot are missing. Therefore, one may want to exlude such trees from the results. The \code{edges} function can be used to keep only trees not closer than some distance from the edges, here 6 m:
+Trees near edges tend to have abnormally low competition indices, because competitors outside the plot are missing. Therefore, one may want to exclude such trees from the results. The \code{edges} function can be used to keep only trees not closer than some distance from the edges, e. g., 6 m:
 <<>>=
 hegyi.trim <- edges(hegyi, -6)
 summary(hegyi.trim)
 @
+\noindent
 
 An alternative edge correction method starts by faking a surround through translations of the real plot. Only part of the expansion is usually needed, in this instance 6 m around the real plot. This can be done with \code{edges(trees, 6)}. After computing the competition indices in the expanded plot, the result is trimmed to the original plot size with \code{edges(hegyi, -6)}. See \code{?edges} for details.
 
