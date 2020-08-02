@@ -31,6 +31,11 @@ apa <- assimilation(trees)
 summary(marks(apa))
 ```
 
+### Vignettes (drafts)
+
+1. [Computing Hegyi’s (and other) Competition Indices.](https://www.researchgate.net/publication/343112487)
+2. [A Gentle Guide to Fully Spatial Models](https://www.researchgate.net/publication/343112736)
+
 ### References:
 * García, O. (2014). "Siplab, a spatial individual-based plant modelling system". *Computational Ecology and Software 4*(4): 215-222. [PDF](https://www.researchgate.net/publication/267695426)
 * García, O. (2014). "A generic approach to spatial individual-based modelling and simulation of plant communities". *Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6*(1), 36-47. [PDF](http://mcfns.net/index.php/Journal/article/view/6_36)
