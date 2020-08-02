@@ -102,7 +102,7 @@ The commonly used form of Hegyi's index for a target tree $i$ is
 \end{equation}
 where $D_i$ and $D_j$ are the dbh of the target tree and the dbh of competitor $j$, respectively, and $R_{ij}$ is the distance between trees $i$ and $j$. The sum is over the ``competitors'' $j$ of tree $i$. In the case of Hegyi's index, competitors are defined as all the trees that are within a given distance $R_{\mbox{max}}$ from the target tree.
 
-This is an example of a class of competition indices handled by function \code{pairwise}. These are based on some function of sizes and distance for pairs of trees (hence ``pairwise''). In \pkg{siplab} the function is called a \emph{kernel}. The kernel values for the pairs formed by the target tree and each of its competitors are added up. Competitors may be defined as those trees within some radius around the target, as in this instance (\code{maxR} = $R_{\mbox{max}}$), or as the $n$ nearest neighbors (\code{maxN} = $n$), or in some other way through a \code{select} function. 
+This is an example of a class of competition indices handled by function \code{pairwise}. These are based on some function of sizes and distance for pairs of trees (hence ``pairwise''). In \pkg{siplab} the function is called a \emph{kernel}. The kernel values for the pairs formed by the target tree and each of its competitors are added up. In general, competitors may be defined as those trees within some radius around the target, as in this instance (\code{maxR} = $R_{\mbox{max}}$), or as the $n$ nearest neighbors (\code{maxN} = $n$), or in some other way through a \code{select} function. 
 
 Here we can use a built-in kernel called \code{powers.ker}, which represents the general form
 \begin{equation} \label{eq:kernel}
@@ -117,7 +117,7 @@ hegyi <- pairwise(trees, maxR=6, kernel=powers.ker,
     kerpar=list(pi=1, pj=1, pr=1, smark=1))
 @
 \noindent
-The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default in \code{powers.ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
+The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default for \code{powers.ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
 <<>>=
 head(marks(hegyi))
 @
@@ -136,7 +136,7 @@ summary(hegyi.trim)
 @
 \noindent
 
-An alternative edge correction method starts by faking a surround through translations of the real plot. Only part of the expansion is usually needed, in this instance 6 m around the real plot. This can be done with \code{edges(trees, 6)}. After computing the competition indices in the expanded plot, the result is trimmed to the original plot size with \code{edges(hegyi, -6)}. See \code{?edges} for details.
+An alternative edge correction method starts by faking a surround through translations of the real plot. Only part of the expansion is usually needed, in this instance up to 6 m around the real plot. This can be done with \code{edges(trees, 6)}. After computing the competition indices in the expanded plot, the result is trimmed to the original plot size with \code{edges(hegyi, -6)}. See \code{?edges} for details.
 
 
 \begin{thebibliography}{99}

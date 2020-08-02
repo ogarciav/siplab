@@ -49,7 +49,7 @@ Maintainer: O. Garcia <garcia@dasometrics.net>
 % https://www.researchgate.net/publication/267695426
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
-(\url{http://www.mcfns.com/index.php/Journal/article/view/6_36}).
+(\url{http://mcfns.net/index.php/Journal/article/view/6_36}).
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 %\keyword{ package }
