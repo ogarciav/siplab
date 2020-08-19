@@ -13,11 +13,11 @@ This is the main function in \pkg{siplab} for computing assimilation indices. Op
 }
 \usage{
 assimilation(plants, pixsize = 0.2, resource = 1, influence =
-    gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
+    gnomon_inf, infpar = NULL, asym = Inf, efficiency = flat_eff,
     effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 
 assimilation_pix(plants, pixsize = 0.2, resource = 1, influence =
-    gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
+    gnomon_inf, infpar = NULL, asym = Inf, efficiency = flat_eff,
     effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -36,7 +36,7 @@ Either a pixel image (class \code{im}), or a function, or other object that can 
 }
   \item{influence}{
 %%     ~~Describe \code{influence} here~~
-Function for computing influence values. Must take arguments \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{infpar} argument. Examples are provided in the functions \code{\link{tass.inf}}, etc. (see \link{influence}). Default: \code{\link{gnomon.inf}}.
+Function for computing influence values. Must take arguments \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{infpar} argument. Examples are provided in the functions \code{\link{tass_inf}}, etc. (see \link{influence}). Default: \code{\link{gnomon_inf}}.
 }
   \item{infpar}{
 %%     ~~Describe \code{infpar} here~~
@@ -48,7 +48,7 @@ Asymmetry parameter \eqn{\alpha} in the allotment function. Default is \code{Inf
 }
   \item{efficiency}{
 %%     ~~Describe \code{efficiency} here~~
-Efficiency function for weighting the point-wise resource uptake. Must take arguments \code{(dx, dy, marks)} or \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{effpar} argument if not \code{NULL}. Examples are provided in the functions \code{\link{tass.eff}}, etc. (see \link{efficiency}). The default is \code{\link{flat.eff}}, no weighting.
+Efficiency function for weighting the point-wise resource uptake. Must take arguments \code{(dx, dy, marks)} or \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{effpar} argument if not \code{NULL}. Examples are provided in the functions \code{\link{tass_eff}}, etc. (see \link{efficiency}). The default is \code{\link{flat_eff}}, no weighting.
 }
   \item{effpar}{
 %%     ~~Describe \code{effpar} here~~
