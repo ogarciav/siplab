@@ -4,7 +4,7 @@
 %   VignetteBuilder: knitr
 %   Suggests: knitr
 % For RStudio installation to compile vignettes use
-%   'devtools::install(build_vignettes = TRUE)' 
+%   'devtools::install(build_vignettes = TRUE)'
 
 \documentclass[12]{article}
 
@@ -12,7 +12,7 @@
 %\VignetteIndexEntry{1. Computing Hegyi's (and other) Competition Indices}
 
 \usepackage[utf8]{inputenc}
-\usepackage{charter}
+\usepackage{charter,inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage{url}
 \usepackage[breaklinks]{hyperref}
@@ -33,6 +33,7 @@
 \newcommand{\abs}{\mathop{\mathgroup\symoperators abs}\nolimits}
 % or \newcommand{\abs}{\mbox{abs}}
 \providecommand{\e}{\mathrm e} % included in amsmath?
+
 % ---  bibliography  ---
 \usepackage{natbib}
 %default:  \bibpunct{(}{)}{;}{a}{,}{,}
@@ -59,15 +60,18 @@
 
 <<setup, include=FALSE, cache=FALSE>>=
 library(knitr)
-options(formatR.arrow=TRUE,width=65)
+options(formatR.arrow=TRUE,width=67)
 @
 
 The competition index of \citet{hegyi} is one of the most popular in the forest modelling literature. I show here how to compute it with \pkg{siplab}. Pointers are also given for computing any other index based on pairwise tree interactions. These are the most common indices in individual-tree distance-dependent (\emph{aka} spatially explicit) growth models, and can be handled by function \code{pairwise}.
 
+
 \section*{Data}
 \label{sec:data}
 
-Let us use the \code{spruces} data set included in the \pkg{spatstat} package. It contains measurements for 134 trees in a 56$\times$38 m sample plot. These data are already in the required \code{ppp} format, but for this example pretend that they are given as a simple data frame called \code{trees}:
+Install \pkg{siplab} with \code{install.packages("siplab")} or through clicking on the appropriate GUI menus, if not already installed. This also installs the required \pkg{spatstat} package.
+
+Let us use the \code{spruces} data set included in \pkg{spatstat}. It contains measurements for 134 trees in a 56$\times$38 m sample plot. These data are already in the required \code{ppp} format, but for this example pretend that they are given as a simple data frame called \code{trees}:
 <<>>=
 library(siplab)
 trees <- as.data.frame(spruces)
@@ -88,7 +92,7 @@ trees <- ppp(trees$x, trees$y, c(0,56), c(0,38), marks=trees$dbh)
 summary(trees)
 @
 \noindent
-The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.  In addition to dimensions it may be useful to include, for instance, tree and species codes.
+The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.  In addition to dimensions, it may be useful to include, for instance, tree and species codes.
 
 An alternative is to use instead \code{trees <- as.ppp(trees, c(0,56.0,38))}.
 
@@ -104,35 +108,35 @@ where $D_i$ and $D_j$ are the dbh of the target tree and the dbh of competitor $
 
 This is an example of a class of competition indices handled by function \code{pairwise}. These are based on some function of sizes and distance for pairs of trees (hence ``pairwise''). In \pkg{siplab} the function is called a \emph{kernel}. The kernel values for the pairs formed by the target tree and each of its competitors are added up. In general, competitors may be defined as those trees within some radius around the target, as in this instance (\code{maxR} = $R_{\mbox{max}}$), or as the $n$ nearest neighbors (\code{maxN} = $n$), or in some other way through a \code{select} function. 
 
-Here we can use a built-in kernel called \code{powers.ker}, which represents the general form
+Here we can use a built-in kernel called \code{powers\_ker}, which represents the general form
 \begin{equation} \label{eq:kernel}
     \frac{S_j^{p_j} / S_i^{p_i}}{R_{ij}^{p_r}} \;,
 \end{equation}
-where $S$ is some measure of tree size.
+where $S$ is some measure of tree size. Note: in older versions of \pkg{siplab} the kernel function mames ended in \code{.ker} instead of \code{\_ker}.
 Hegyi's index corresponds to the special case $p_i = p_j = p_r = 1$. Type \code{?kernel} for other built-ins or for how to write your own.
 
 Thus, choosing 6 meters for $R_{\mbox{max}}$, the index can be obtained from
 <<>>=
-hegyi <- pairwise(trees, maxR=6, kernel=powers.ker,
+hegyi <- pairwise(trees, maxR=6, kernel=powers_ker,
     kerpar=list(pi=1, pj=1, pr=1, smark=1))
 @
 \noindent
-The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default for \code{powers.ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
+The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default for \code{powers\_ker}. The computed indices are returned as an additional column \code{cindex} in the marks:
 <<>>=
 head(marks(hegyi))
 @
 \noindent
 
-In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig.ker)} (no \code{kerpar} needed).
+In the original article, Hegyi added 1 foot to the distance in the denominator\citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig\_ker)} (no \code{kerpar} needed).
 
 
 \section*{Edge effects}
 \label{sec:edge}
 
-Trees near edges tend to have abnormally low competition indices, because competitors outside the plot are missing. Therefore, one may want to exclude such trees from the results. The \code{edges} function can be used to keep only trees not closer than some distance from the edges, e. g., 6 m:
+Trees near edges tend to have abnormally low competition indices because competitors outside the plot are missing. Therefore, one may want to exclude such trees from the results. The \code{edges} function can be used to keep only trees not closer than some distance from the edges, e.g., 6 m:
 <<>>=
-hegyi.trim <- edges(hegyi, -6)
-summary(hegyi.trim)
+hegyi_trim <- edges(hegyi, -6)
+summary(hegyi_trim)
 @
 \noindent
 

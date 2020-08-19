@@ -38,5 +38,6 @@ Changes in version 1.5  (2020-07-xx)
   - Function pairwise: If both maxN and maxR are null, set maxN equal
     to the number of points. Avoids error message from applynbd.
   - Make parameters optional in eficiency, kernel and select functions.
+  - Change . to _ in function names.
   - Add vignettes.
   - Documentation improvements.

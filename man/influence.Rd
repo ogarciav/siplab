@@ -2,10 +2,10 @@
 \name{influence}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \alias{influence}
-\alias{zoi.inf}
-\alias{tass.inf}
-\alias{gates.inf}
-\alias{gnomon.inf}
+\alias{zoi_inf}
+\alias{tass_inf}
+\alias{gates_inf}
+\alias{gnomon_inf}
 \title{
 %%  ~~function to do ... ~~
 Influence Functions
@@ -13,16 +13,19 @@ Influence Functions
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 Compute influence values depending on distance and plant marks, for use in \code{\link{assimilation}}.
+
+Note: In previous versions of \pkg{siplab} the function names had
+\code{.inf} in place of \code{_inf}.
 }
 \usage{
-zoi.inf(dx, dy, marks, par = list(k = 0.2, smark = 1))
+zoi_inf(dx, dy, marks, par = list(k = 0.2, smark = 1))
 
-tass.inf(dx, dy, marks, par = list(b = 3.52 * 0.975, c = 6.1,
+tass_inf(dx, dy, marks, par = list(b = 3.52 * 0.975, c = 6.1,
     smark = 1))
 
-gates.inf(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
+gates_inf(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 
-gnomon.inf(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
+gnomon_inf(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -55,13 +58,13 @@ The values of \code{par} are taken from the argument \code{infpar} of \code{assi
 
 Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point distance \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)}. Then the built-in influence functions are:
 \describe{
-\item{\code{zoi.inf}:}{1 if \eqn{R < k S}, 0 otherwise}
+\item{\code{zoi_inf}:}{1 if \eqn{R < k S}, 0 otherwise}
 
-\item{\code{tass.inf}:}{\eqn{\max\{0, \, S - c[\exp(R/b) - 1]\}}{max{0, S - c[exp(R/b) - 1]}}}
+\item{\code{tass_inf}:}{\eqn{\max\{0, \, S - c[\exp(R/b) - 1]\}}{max{0, S - c[exp(R/b) - 1]}}}
 
-\item{\code{gates.inf}:}{\eqn{\max\{0, \, [S^a - (b R)^a]^{1/a}\}}{max{0, [S^a - (bR)^a]^(1/a)}}}
+\item{\code{gates_inf}:}{\eqn{\max\{0, \, [S^a - (b R)^a]^{1/a}\}}{max{0, [S^a - (bR)^a]^(1/a)}}}
 
-\item{\code{gnomon.inf}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
+\item{\code{gnomon_inf}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
 }
 Other influence functions can be written following these examples.
 }
@@ -96,12 +99,12 @@ Oscar \enc{García}{Garcia}.
 
 \examples{
 # Example multi-species influence function (spruce/hardwoods)
-multi.inf <- function (dx, dy, marks, par) {
+multi_inf <- function (dx, dy, marks, par) {
     out <- numeric(length(dx))
     s <- marks$SPECIES == "Spruce"
-    out[s] <- gnomon.inf(dx[s], dy[s], marks[s, ], par=list(a=par$aS,
+    out[s] <- gnomon_inf(dx[s], dy[s], marks[s, ], par=list(a=par$aS,
         b=par$bS, smark=par$smark))
-    out[!s] <- gnomon.inf(dx[!s], dy[!s], marks[!s, ], par=list(a=par$aH,
+    out[!s] <- gnomon_inf(dx[!s], dy[!s], marks[!s, ], par=list(a=par$aH,
         b=par$bH, smark=par$smark)) # Hardwoods
     return(out)
 }

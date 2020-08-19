@@ -2,7 +2,7 @@
 \name{assimilation}
 \alias{assimilation}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\alias{assimilation.pix}
+\alias{assimilation_pix}
 \title{
 %%  ~~function to do ... ~~
 Compute Assimilation Indices
@@ -16,7 +16,7 @@ assimilation(plants, pixsize = 0.2, resource = 1, influence =
     gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
     effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 
-assimilation.pix(plants, pixsize = 0.2, resource = 1, influence =
+assimilation_pix(plants, pixsize = 0.2, resource = 1, influence =
     gnomon.inf, infpar = NULL, asym = Inf, efficiency = flat.eff,
     effpar = NULL, plot = TRUE, afree = FALSE, centroid = FALSE)
 }
@@ -44,7 +44,7 @@ Parameter(s) for \code{influence}, a list or vector. Default: \code{list(a=1, b=
 }
   \item{asym}{
 %%     ~~Describe \code{asym} here~~
-Asymmetry parameter \eqn{\alpha} in the allotment function. Default is \code{Inf}, which corresponds to one-sided competition (tesselation models).
+Asymmetry parameter \eqn{\alpha} in the allotment function. Default is \code{Inf}, which corresponds to one-sided competition (tesselation models). In old versions of \pkg{siplab} this parameter was called \code{partpar}.
 }
   \item{efficiency}{
 %%     ~~Describe \code{efficiency} here~~
@@ -69,7 +69,7 @@ If \code{TRUE}, the centroid of the plant assimilation distribution is also comp
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-\code{assimilation} and \code{assimilation.pix} are functionally equivalent, but the code in \code{assimilation.pix} is somewhat clearer and slower. It may be useful for documentation purposes, and as a basis for user modification.
+\code{assimilation} and \code{assimilation_pix} are functionally equivalent, but the code in \code{assimilation_pix} is somewhat clearer and slower. It may be useful for documentation purposes, and as a basis for user modification.
 
 Computation starts with a resource intensity map at a spatial resolution given by \code{pixsize}. Typically the resource distribution is assumed to be uniform (the default). Plants exert competitive pressure depending on size and distance, described by the \code{\link{influence}} function. The resource available at each pixel is allotted to plants according to their influence and to an allotment rule parametrized by \code{asym}. Finally, the resource uptake is weighted by the \code{\link{efficiency}} function, and is spatially integrated to obtain the plant's assimilation index. Besides size, influence and efficiency functions can include other plant attributes, such as species.
 }
@@ -105,7 +105,7 @@ Requires the \pkg{spatstat} package.
 a <- assimilation(finpines, infpar=list(a=1, b=4,
      smark="height"), afree=TRUE)
 summary(a)
-system.time(assimilation.pix(finpines))
+system.time(assimilation_pix(finpines))
 system.time(assimilation(finpines))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

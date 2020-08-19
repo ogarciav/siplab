@@ -72,10 +72,10 @@ data$marks = data$marks * 100  # dbh in cm
 datap <- as.ppp(data, c(0, 56, 0, 38))  # plot limits (minx, maxx, miny, maxy)
 # or datap <- ppp(data$x, data$y, c(0, 56), c(0, 38), marks = data$marks)
 # Hegyi (1974) index (as usual without his original 1-foot distance offset)
-hegyi <- pairwise(datap, maxR = 6, kernel = powers.ker, kerpar = list(pi=1,
+hegyi <- pairwise(datap, maxR = 6, kernel = powers_ker, kerpar = list(pi=1,
     pj=1, pr=1, smark=1))
 head(marks(hegyi))
 # ZOI model
-zoi <- assimilation(datap, influence=zoi.inf, infpar=c(k=0.2, smark=1),
+zoi <- assimilation(datap, influence=zoi_inf, infpar=c(k=0.2, smark=1),
     asym=1)
 }

@@ -1,4 +1,4 @@
-gates.inf <-
+gates_inf <-
 function(dx, dy, marks, par=list(a=1, b=4, smark=1)) {
 # Gates et al influence functions  [(s/b)^a - R^a]^(1/a) 
     with(as.list(par),

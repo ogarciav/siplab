@@ -1,4 +1,4 @@
-tass.eff <-
+tass_eff <-
 function(dx, dy, marks, par=list(b=3.52*0.975, c=6.1, smark=1)) {
 # TASS-like efficiency function  1 - c[exp(R/b) - 1] / s
     with(as.list(par),

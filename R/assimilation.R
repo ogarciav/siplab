@@ -2,10 +2,10 @@ assimilation <-
 function(plants, # marked point pattern (class ppp)
          pixsize=0.2, # resolution (pixel size)
          resource=1, # resource map
-         influence=gnomon.inf, # influence function
+         influence=gnomon_inf, # influence function
          infpar=NULL, # influence function parameter(s)
          asym=Inf, # asymmetry parameter
-         efficiency=flat.eff, # efficiency function
+         efficiency=flat_eff, # efficiency function
          effpar=NULL, # efficiency function parameter(s)
          plot=TRUE, # plot influences map?
          afree=FALSE, # include free-growing assimilation in output?         
