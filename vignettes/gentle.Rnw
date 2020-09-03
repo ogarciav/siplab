@@ -63,7 +63,7 @@
 
 \title{A Gentle Guide to Fully Spatial Models}
 \author{\pkg{siplab}, Vignette \#2}  % Oscar Garc\'ia
-\date{Draft, \today}
+\date{} % Draft, \today}
 
 \begin{document}
 \maketitle
@@ -76,7 +76,7 @@ options(width=67)
 library(siplab)
 @
 
-Vignette \#1 about Hegyi's index described competition indices based on sizes and distances between plants (figure \ref{fig:pairs}). Those can be calculated with function \code{pairwise}. Here I discuss models that depend on the full configuration of competitor locations, including interactions among three or more plants. These are handled by function \code{assimilation}. Refer to vignette \#1 for data preparation, and for edge effects adjustments. \citet{siplab} covers more technical details and literature references.
+Vignette \#1 about Hegyi's index described competition indices based on sizes and distances between plants (figure \ref{fig:pairs}). Those can be calculated with function \code{pairwise()}. Here I discuss models that depend on the full configuration of competitor locations, including interactions among three or more plants. These are handled by function \code{assimilation()}. Refer to vignette \#1 for data preparation, and for edge effects adjustments. \citet{siplab} covers more technical details and literature references.
 
 \fig{pairs}{Pairwise competition. (a) Count C. D. F. Reventlow, amateur forester and Danish prime minister, used tree sizes and inter-tree distances to somehow produce yield tables around the year 1800. (b) G. R. Staebler, in his 1951 Master Thesis at the University of Michigan, used as a competition index the sum of the overlap widths $d'$ of circular \emph{zones of influence} (ZOIs, type \code{?staebler\_ker} for more).}
 
@@ -106,7 +106,7 @@ A plant's APA includes all points (or pixels) for which that plant's cone surfac
 
 It is not difficult to see that the whole thing still works if we flip the cones upside down, and substitute maximum for minimum. And it does not make any difference if we shift all the cones up or down by some amount. One can thus visualize the likely mechanistic motivation behind the APA idea: Plants exert some competitive pressure or influence over spots on the ground, which decreases with distance. And they grab for themselves those spots where their influence is higher than that of their neighbors.
 
-With this decreasing conical \emph{influence function} (IF) we can now use \code{assimilation} to calculate the APAs for the plants of figure \ref{fig:apa}. Assume that these are trees in a 10$\times$10 m plot. Function \code{assimilation} ignores pixels where the influence is not positive, so we make the cone high enough to avoid them.
+With this decreasing conical \emph{influence function} (IF) we can now use \code{assimilation()} to calculate the APAs for the plants of figure \ref{fig:apa}. Assume that these are trees in a 10$\times$10 m plot. Function \code{assimilation()} ignores pixels where the influence is not positive, so we make the cone high enough to avoid them.
 <<>>=
 # Assume siplab already installed (install.package("siplab")),
 #   and loaded with library(siplab)
@@ -114,8 +114,8 @@ With this decreasing conical \emph{influence function} (IF) we can now use \code
 threeTrees <- ppp(x=c(2,7,6), y=c(3,3,7), c(0,10), c(0,10),
     marks=c(10,10,10))  # marks are arbitrary (for now)
 # Influence function. Takes distance components
-cone_inf <- function(dx, dy, ...){  # and allows other args
-    10 - sqrt(dx^2 + dy^2)  # 10 m radius at the base
+cone_inf <- function(dx, dy, ...){  # and allow other args
+    10 - sqrt(dx^2 + dy^2)  # 10 m height and radius at the base
 }
 # That's it, do it
 a <- assimilation(threeTrees, influence=cone_inf)
@@ -129,18 +129,18 @@ a
 marks(a)
 sum(marks(a)$aindex)
 @
-\noindent Not exactly 100 m$^2$ because of the discretization. The trade-off between accuracy and computing time can be controlled through the pixel size in the optional argument \code{pixsize} of \code{assimilation}. The default is a 0.2-units square pixel, in this example 20$\times$20 cm.
+\noindent Not exactly 100 m$^2$ because of the discretization. The trade-off between accuracy and computing time can be controlled through the pixel size in the optional argument \code{pixsize} of \code{assimilation()}. The default is a 0.2-units square pixel, in this example 20$\times$20 cm.
 
 \begin{sloppypar}
-Instead of \code{cone\_inf} we could have used a pre-defined IF with suitable parameters. Both \code{gates\_inf} and \code{gnomon\_inf} are cones if \code{a=1} (see \code{?influence}). For instance, \code{gnomon\_inf} implements a general form $S - b R^a$, where $S$ is the mark value, and $R$ is point-to-plant distance. (Names like \code{gnomon.inf} in older versions of \pkg{siplab} have been changed by substituting \code{\_} for \code{.} to prevent overthinking by knowledgeable users: nothing to do with object-oriented programming!) Therefore, \code{ assimilation(threeTrees, influence=gnomon\_inf, infpar=c(a=1, b=1, smark=1))} produces exactly the same result. The argument \code{infpar} specifies parameters for the IF, and \code{smark} identifies the mark to use for size if there are more than one.
+Instead of \code{cone\_inf()} we could have used a pre-defined IF with suitable parameters. Both \code{gates\_inf()} and \code{gnomon\_inf()} are cones if \code{a=1} (see \code{?influence}). For instance, \code{gnomon\_inf()} implements a general form $S - b R^a$, where $S$ is the mark value, and $R$ is point-to-plant distance. Therefore, \code{ assimilation(threeTrees, influence=gnomon\_inf, infpar=c(a=1, b=1, smark=1))} produces exactly the same result. The argument \code{infpar} specifies parameters for the IF, and \code{smark} identifies the mark to use for size if there are more than one.
 \end{sloppypar}
 
 
 
-Actually, after some doodling on the back of an envelope, we can convince ourselves that the cone angle does not matter. More pointed or flatter cones produce the same Voronoi tessellation, provided that we adjust the height to avoid gaps. The default in \code{assimilation} happens to be \code{influence=gnomon\_inf} with parameters $a=1$ and $b=4$. From $S - b R = 0$, a 10 m ZOI radius is obtained with $S=40$. Therefore, after setting \code{marks(threeTrees) <- 40}, the same APAs should be obtained with just \code{assimilation(threeTrees)}. Try it!
+Actually, after some doodling on the back of an envelope, we can convince ourselves that the cone angle does not matter. More pointed or flatter cones produce the same Voronoi tessellation, provided that we adjust the height to avoid gaps. The default in \code{assimilation()} happens to be \code{influence=gnomon\_inf} with parameters $a=1$ and $b=4$. From $S - b R = 0$, a 10 m ZOI radius is obtained with $S=40$. Therefore, after setting \code{marks(threeTrees) <- 40}, the same APAs should be obtained with just \code{assimilation(threeTrees)}. Try it!
 
 \begin{sloppypar}
-Perhaps more surprising, the profile of the IF does not matter either (more doodling). All that is needed is a radially symmetric function decreasing with distance, identical for all plants. Try a paraboloid,
+Perhaps more surprising, the profile of the IF does not matter either (more doodling). All that is needed is a radially symmetric function decreasing with distance, identical for all plants. Try a paraboloid:
 \code{assimilation(threeTrees, influence=gnomon\_inf, infpar=c(a=2,
 b=1, smark=1))}. The math level goes downhill from here, don't worry!
 \end{sloppypar}
@@ -160,9 +160,9 @@ a <- assimilation(threeTrees, pixsize=0.05)
 b <- assimilation(threeTrees, pixsize=0.05, infpar=c(a=2,
     b=.8, smark=1))
 @
-\noindent Unlike in the case of equal sizes, here the shape of the IF \emph{does} matter. Not too easy to see, but if you zoom-in you can verify that for the conical IF the APA boundaries are curved. The quadratic paraboloid is exceptional in producing straight lines (also the ellipsoid from \code{gates\_inf} with \code{a=2}). Then the result is a generalization of the Voronoi/Dirichlet tessellation, known as a \emph{power diagram} or \emph{Laguerre-Voronoi diagram} \citep[][Appendix B3]{siplab}. Of course, there is no apparent reason why straight boundaries should be better than curved boundaries.
+\noindent Unlike in the case of equal sizes, here the shape of the IF \emph{does} matter. Not too easy to see, but if you zoom-in you can verify that for the conical IF the APA boundaries are curved. The quadratic paraboloid is exceptional in producing straight lines (also the ellipsoid from \code{gates\_inf()} with \code{a=2}). Then, the result is a generalization of the Voronoi/Dirichlet tessellation, known as a \emph{power diagram} or \emph{Laguerre-Voronoi diagram} \citep[][Appendix B3]{siplab}. Of course, there is no apparent reason why straight boundaries should be better than curved boundaries.
 
-Some authors suggested that there should be a maximum distance beyond which the tree cannot utilize the space, even if not contested by any competitors. Then, if the spacing is wide enough or the trees are small, the APA is the intersection of the tessellation element and a circle that represents the reach of a free-growing tree. In terms of influence, that would be the distance at which the IF becomes 0, generating a circular area that might be called a (free-growing) zone of influence (ZOI). This is modelled automatically by \code{assimilation}, as can be seen  with small sizes or low densities. Calculated ZOI areas can be obtained by setting the optional argument \code{afree = TRUE}.
+Some authors suggested that there should be a maximum distance beyond which the tree cannot utilize the space, even if not contested by any competitors. Then, if the spacing is wide enough or the trees are small, the APA is the intersection of the tessellation element and a circle that represents the reach of a free-growing tree. In terms of influence, that would be the distance at which the IF becomes 0, generating a circular area that might be called a (free-growing) zone of influence (ZOI). This is modelled automatically by \code{assimilation()}, as can be seen  with small sizes or low densities. Calculated ZOI areas can be obtained by setting the optional argument \code{afree = TRUE}.
 
 \begin{sloppypar}
 Just for fun, repeat the three-tree calculations above with other data. Some tree \code{ppp} data sets with size marks, included in \pkg{siplab} or \pkg{spatstat}: \code{boreasNP, boreasNS, boreasSA, boreasSP,  finpines, longleaf, spruces, waka}. With large data sets you may have to wait a few minutes.
@@ -191,7 +191,7 @@ TASS computes an age-weighted amount of foliage for each tree by numerical integ
 (\url{ https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory/growth-and-yield-modelling/tree-and-stand-simulator-tass}). Animations and other material are available at \url{http://forestgrowth.unbc.ca/tadam}.
 \end{sloppypar}
 
-Mitchell's competition mechanism can be represented in \pkg{siplab}. The TASS crown profile equation was inverted to produce an influence function, \code{tass\_inf}. That is, the IF, that specifies crown surface height as a function of radial distance, was obtained from the profile equation that gives radius as a function of distance from the top.
+Mitchell's competition mechanism can be represented in \pkg{siplab}. The TASS crown profile equation was inverted to produce an influence function, \code{tass\_inf()}. That is, the IF, that specifies crown surface height as a function of radial distance, was obtained from the profile equation that gives radius as a function of distance from the top.
 <<>>=
 curve(tass_inf(x, 0, marks=6), from=-3, to=3, asp=1, ylab="")
 curve(gnomon_inf(x, 0, 6, par=c(a=1.3, b=2, smark=1)), lty=2,
@@ -212,9 +212,9 @@ head(marks(aok))
 \end{sloppypar}
 
 In the late 1970s, D. J. Gates and collaborators at the Australian CSIRO elucidated the relationship between crown profiles and Voronoi-type tessellations. They also carried out an axiomatic mathematical analysis of space partitioning by plants. Their presentation is rather technical, but essentially, starting from a set of reasonable assumptions, it is concluded that the equation of the crown profile that generates the partition must belong to a certain class of functions. With the additional condition of crown shapes being
-similar, that is, differing only by a scale factor, the options narrow down to the generalized ellipsoid in \code{gates\_inf}.
+similar, that is, differing only by a scale factor, the options narrow down to the generalized ellipsoid in \code{gates\_inf()}.
 % Also known as a ``superegg'' after the Danish mathematician, designer and poet Piet Hein, popularized by an article of Martin Gardner in \emph{Scientific American}.
-I found that, if instead of being similar, the shapes differ only by a vertical displacement as in TASS, then the equation must be the generalized paraboloid of \code{gnomon\_inf}. I called this \emph{gnomonic scaling}, gnomon being “that which, added to an
+I found that, if instead of being similar, the shapes differ only by a vertical displacement as in TASS, then the equation must be the generalized paraboloid of \code{gnomon\_inf()}. I called this \emph{gnomonic scaling}, gnomon being “that which, added to an
 entity (number or shape), makes a new entity similar to
 the starting entity” (Wikipedia). More in Appendix B of \citet{siplab}.
 
@@ -237,7 +237,7 @@ Of course, in many instances light is not the limiting factor, belowground compe
 \subsection*{Symmetry/asymmetry}
 \label{sec:part}
 
-The type of competition discussed until now is \emph{one-sided}, meaning that the plant with the highest influence at some spot grabs the totality of the resource in there. Winner-takes-all. Or \emph{completely asymmetric} competition. Another possibility would be for the resource at a spot to be shared among plants, say in proportion to their influence values (symmetric). In \code{assimilation} these two alternatives are specified setting the parameter \code{asym = Inf} (the default) or  \code{asym = 1}, respectively. These are perhaps the most interesting cases, but it is also possible to specify sharing more or less than proportional to influence, along a continuum from \code{asym = 0} to \code{asym = Inf}.
+The type of competition discussed until now is \emph{one-sided}, meaning that the plant with the highest influence at some spot grabs the totality of the resource in there. Winner-takes-all. Or \emph{completely asymmetric} competition. Another possibility would be for the resource at a spot to be shared among plants, say in proportion to their influence values (symmetric). In \code{assimilation()} these two alternatives are specified setting the parameter \code{asym = Inf} (the default) or  \code{asym = 1}, respectively. These are perhaps the most interesting cases, but it is also possible to specify sharing more or less than proportional to influence, along a continuum from \code{asym = 0} to \code{asym = Inf}.
 
 One-sided competition makes sense in terms of physical crown interference. Maybe not so much with wider competitive-pressure IFs. Note that one-sided models do not allow trees to survive under the canopy, as it often happens with light-tolerant species. Repeating the \code{finpines} example above, but with symmetric competition:
 <<>>=
@@ -253,12 +253,12 @@ The concept of symmetry or asymmetry here differs from that in the literature in
 \subsection*{Efficiency}
 \label{sec:eff}
 
-Once the plant has captured some amount of resource from a spot, the benefit from it might vary with distance. Reaching distant spots can mean a higher expense in energy and materials (branches, roots). It may be reasonable then to apply a distance-dependent weight to the captured resource. This is done in \code{assimilation} by specifying an \emph{efficiency function}. The function name is passed in the parameter \code{efficiency}, with optional parameters in \code{effpar}. The default is a \emph{flat} efficiency (no weighting). There are built-in efficiency functions proportional to each of the built-in IFs, scaled to 1 at distance 0. See \code{?efficiency}.
+Once the plant has captured some amount of resource from a spot, the benefit from it might vary with distance. Reaching distant spots can mean a higher expense in energy and materials (branches, roots). It may be reasonable then to apply a distance-dependent weight to the captured resource. This is done in \code{assimilation()} by specifying an \emph{efficiency function}. The function name is passed in the parameter \code{efficiency}, with optional parameters in \code{effpar}. The default is a \emph{flat} efficiency (no weighting). There are built-in efficiency functions proportional to each of the built-in IFs, scaled to 1 at distance 0. See \code{?efficiency}.
 
 \subsection*{Resource distribution}
 \label{sec:res}
 
-SIP models usually (always?) assume a spatially uniform resource availability. For some purposes, it might be interesting to investigate the effects of a heterogeneous resource. For instance, micro-site fertility variability, or gradients due to slope, or to wind or light direction. I do not know of any examples in the literature, but just in case, \code{assimilation} accepts a resource map in parameter \code{resource}. The default is uniform.
+SIP models usually (always?) assume a spatially uniform resource availability. For some purposes, it might be interesting to investigate the effects of a heterogeneous resource. For instance, micro-site fertility variability, or gradients due to slope, or to wind or light direction. I do not know of any examples in the literature, but just in case, \code{assimilation()} accepts a resource map in parameter \code{resource}. The default is uniform.
 
 Gradients might also be simulated through deviations from radial symmetry. That is, changing the circular cross section of IFs to elliptical or other shapes. This can be done in \pkg{siplab} since the influence and efficiency functions receive the distance components \code{dx} and \code{dy}, and not just the radius. 
 
@@ -304,7 +304,7 @@ Normally, SIP models use stem-base or breast-height coordinates, and assume rigi
 \fig{plast}{(a) Crown profiles or influence functions in a spatial model with no plasticity. (b) Leaning and shape distortion equalizing
 competition intensity. From Lee \& Garc\'ia, see \citet{cohorts} for references.}
 
-A plasticity simulation can be performed in \pkg{siplab} by iteratively moving the coordinates to the centroid of the APA. Centroids are calculated in \code{assimilation} if the parameter \code{centroid} is set to \code{TRUE}. Let us use the BOREAS aspen data, a conical IF, one-sided competition, and flat efficiency. We limit displacements to 3 m so that crowns do not wander too far.
+A plasticity simulation can be performed in \pkg{siplab} by iteratively moving the coordinates to the centroid of the APA. Centroids are calculated in \code{assimilation()} if the parameter \code{centroid} is set to \code{TRUE}. Let us use the BOREAS aspen data, a conical IF, one-sided competition, and flat efficiency. We limit displacements to 3 m so that crowns do not wander too far.
 <<eval=FALSE>>=
 trees <- boreasSA
 dlim <- 3  # displacement limit
@@ -329,7 +329,7 @@ plot(edges(trees, -5), main="After", use.marks=F)
 @
 \noindent Results omitted, try it yourself (will take a minute or two). More details and refinements in my 2014 publication cited in \citet{cohorts}.
 
-Of course, in 3 (or 2?) dimensions the contact point levels $z^*$ cannot reach exactly the same height, unlike in figure \ref{fig:plast}. Unless the IF cross sections deviate from circular to better fill the gaps. With one-sided competition, a uniform $z^*$ can be achieved defining an IF shape by the cross-sectional area as a function of distance from the top. For instance, in the paraboloid the area increases linearly with distance, and in the cone, quadratically. Two more assumptions are needed for uniform $z^*$: no big gaps so that displacements are not constrained, and density high enough and/or trees tall enough for full canopy closure ($z^* > 0$). Then, one has what Strigul and collaborators in Pacala's Lab at Princeton University called the \emph{perfect plasticity assumption} (PPA). A consequence is that the tree locations become totally irrelevant. Think of a soap froth, where the bubbles move in equilibrium with their neighbors.
+Of course, in 3 (or 2?) dimensions the contact levels $z^*$ cannot reach exactly the same height on all sides, unlike in figure \ref{fig:plast}. Unless the IF cross sections deviate from circular to better fill the gaps. With one-sided competition, a uniform $z^*$ can be achieved defining an IF shape by the cross-sectional area as a function of distance from the top. For instance, in the paraboloid the area increases linearly with distance, and in the cone, quadratically. Two more assumptions are needed for uniform $z^*$: no big gaps so that displacements are not constrained, and density high enough and/or trees tall enough for full canopy closure ($z^* > 0$). Then, one has what Strigul and collaborators in Pacala's Lab at Princeton University called the \emph{perfect plasticity assumption} (PPA). A consequence is that the tree locations become totally irrelevant. Think of a soap froth, where the bubbles move in equilibrium with their neighbors.
 
 Strigul \emph{et al.} obtained their results for a specific growth model, a variant of the well-known \emph{Sortie}. But a more general theory can be derived, applicable to any IF. The basic idea is that, under the PPA, the sum of the IF cross-sectional areas at the common contact height $z^*$ must equal the total plot area. The equation can be solved for $z^*$, usually numerically. Then $z^*$ and the IF are used to calculate the cross section at that height for each tree, which is its APA. Closed-form solutions, that is, explicit formulas, exist for the special cases of paraboloids and cones. Appendix A of \citet{cohorts} gives a generalization to mixed stands with any number of species, each with its own IF. No idea how to work out the case of symmetric competition. 
 
@@ -358,6 +358,8 @@ Aggregate models, however, are conceptually more obscure and abstract, lacking t
 \bibitem[Garc\'ia(2017)Garc\'ia]{cohorts} Garc\'ia, O. (2017) 
 Cohort aggregation modelling for complex forest stands: Spruce-aspen mixtures in British Columbia. \emph{Ecological Modelling 343}, 109--122. (\url{https://dx.doi.org/10.1016/j.ecolmodel.2016.10.020}).
 \end{thebibliography}
+
+\bigskip\noindent\today
 
 %\bibliography{} \addcontentsline{toc}{section}{References}
 \end{document}

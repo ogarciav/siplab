@@ -12,7 +12,7 @@ Influence Functions
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Compute influence values depending on distance and plant marks, for use in \code{\link{assimilation}}.
+Compute influence values depending on distance and plant marks, for use in \code{\link{assimilation}()}.
 
 Note: In previous versions of \pkg{siplab} the function names had
 \code{.inf} in place of \code{_inf}.
@@ -50,21 +50,21 @@ List of parameters.
 %%  ~~ If necessary, more details than the description above ~~
 The user can program her/his own influence function. It must take the arguments \code{dx}, \code{dy}, \code{marks}, and optionally \code{par}.
 
-Influence function values are normally non-negative. Otherwise, they are set to 0 in \code{assimilation}.
+Influence function values are normally non-negative. Otherwise, they are set to 0 in \code{assimilation()}.
 
-The values of \code{par} are taken from the argument \code{infpar} of \code{assimilation}, if not \code{NULL}. Otherwise the default is used.
+The values of \code{par} are taken from the argument \code{infpar} of \code{assimilation()}, if not \code{NULL}. Otherwise the default is used.
 
 \code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
 Let \eqn{S} be the plant size, and \eqn{R} be the Euclidean plant-to-point distance \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)}. Then the built-in influence functions are:
 \describe{
-\item{\code{zoi_inf}:}{1 if \eqn{R < k S}, 0 otherwise}
+\item{\code{zoi_inf()}:}{1 if \eqn{R < k S}, 0 otherwise}
 
-\item{\code{tass_inf}:}{\eqn{\max\{0, \, S - c[\exp(R/b) - 1]\}}{max{0, S - c[exp(R/b) - 1]}}}
+\item{\code{tass_inf()}:}{\eqn{\max\{0, \, S - c[\exp(R/b) - 1]\}}{max{0, S - c[exp(R/b) - 1]}}}
 
-\item{\code{gates_inf}:}{\eqn{\max\{0, \, [S^a - (b R)^a]^{1/a}\}}{max{0, [S^a - (bR)^a]^(1/a)}}}
+\item{\code{gates_inf()}:}{\eqn{\max\{0, \, [S^a - (b R)^a]^{1/a}\}}{max{0, [S^a - (bR)^a]^(1/a)}}}
 
-\item{\code{gnomon_inf}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
+\item{\code{gnomon_inf()}:}{\eqn{\max\{0, \, S - b R^a\}}{max{0, S - b R^a}}}
 }
 Other influence functions can be written following these examples.
 }

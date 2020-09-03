@@ -10,7 +10,7 @@ Competitor Selection Rules
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Functions returning TRUE for plants that compete with a given subject plant, or FALSE otherwise. The decision can depend on distance and plant marks. For use in \code{\link{pairwise}}.
+Functions returning TRUE for plants that compete with a given subject plant, or FALSE otherwise. The decision can depend on distance and plant marks. For use in \code{\link{pairwise}()}.
 
 Note: In previous versions of \pkg{siplab} the function names had
 \code{.sel} in place of \code{_sel}.
@@ -42,15 +42,15 @@ List of parameters.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} are taken from the argument \code{selpar} of \code{pairwise}, if not \code{NULL}.
+The values of \code{par} are taken from the argument \code{selpar} of \code{pairwise()}, if not \code{NULL}.
 
 \code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
-\code{size_sel} is a simple example where competitors are selected within a radius proportional to plant size. This corresponds to the second example in Section 9.2.1 of Burkhart and \enc{Tomé}{Tome} (2012).
+\code{size_sel()} is a simple example where competitors are selected within a radius proportional to plant size. This corresponds to the second example in Section 9.2.1 of Burkhart and \enc{Tomé}{Tome} (2012).
 
-Note that their first example (fixed radius) is implemented by giving a value to \code{maxR} in \code{\link{pairwise}}, no \code{select} function is needed. Similarly, their third example (fixed number of nearest neighbors) is obtained by giving a value to \code{maxN}.
+Note that their first example (fixed radius) is implemented by giving a value to \code{maxR} in \code{\link{pairwise}()}, no \code{select} function is needed. Similarly, their third example (fixed number of nearest neighbors) is obtained by giving a value to \code{maxN}.
 
-\code{powlinear_sel} is a general form that covers all the other examples in Burkhart and \enc{Tomé}{Tome} (2012) by choosing specific parameters values  (except for the \emph{competition elimination angle}, which depends on relative positions among competitors and not only on distances).
+\code{powlinear_sel()} is a general form that covers all the other examples in Burkhart and \enc{Tomé}{Tome} (2012) by choosing specific parameters values  (except for the \emph{competition elimination angle}, which depends on relative positions among competitors and not only on distances).
 It implements a condition \code{distance < ki * sizei^p + kj * sizej^p + r0}, with the following special cases:
 \describe{
 \item{ }{Multiple of crown radius: \code{kj=0, p=1, r0=0, smark="crownwidth"}.}

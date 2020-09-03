@@ -30,7 +30,7 @@ Maximum radius to search for potential competitors. Default is NULL (no restrict
 }
   \item{select}{
 %%     ~~Describe \code{select} here~~
-Optional user-supplied selection function for choosing competitors. Must take arguments \code{(imarks, jmarks, dists, dranks)} or \code{(imarks, jmarks, dists, dranks, par)}, where \code{imarks} are the marks for the subject plant (a 1-row data frame), \code{jmarks} is a data frame with the marks of the potential competitors, \code{dists} is a vector distances between subject plant and the potential competitors, \code{dranks} are the distance ranks, and \code{par} receives the value of the \code{selpar} argument if not \code{NULL}. It must return a logical vector with the same length as \code{dists}. Examples are provided in the functions \code{\link{powlinear_sel}}, etc. (see \link{select}). Default is NULL (no selection).
+Optional user-supplied selection function for choosing competitors. Must take arguments \code{(imarks, jmarks, dists, dranks)} or \code{(imarks, jmarks, dists, dranks, par)}, where \code{imarks} are the marks for the subject plant (a 1-row data frame), \code{jmarks} is a data frame with the marks of the potential competitors, \code{dists} is a vector distances between subject plant and the potential competitors, \code{dranks} are the distance ranks, and \code{par} receives the value of the \code{selpar} argument if not \code{NULL}. It must return a logical vector with the same length as \code{dists}. Examples are provided in the functions \code{\link{powlinear_sel}()}, etc. (see \link{select}). Default is NULL (no selection).
 }
   \item{selpar}{
 %%     ~~Describe \code{selpar} here~~
@@ -38,7 +38,7 @@ Parameter(s) for \code{select}, usually a list or vector. Default: NULL.
 }
   \item{kernel}{
 %%     ~~Describe \code{kernel} here~~
-Competition kernel function for computing the effect of competitor \eqn{j} on the subject plant \eqn{i}. Must yake arguments \code{(imarks, jmarks, dists, dranks)} or \code{(imarks, jmarks, dists, dranks, par)}, where \code{imarks} are the marks for the subject plant (a 1-row data frame), \code{jmarks} is a data frame with the marks of the potential competitors, \code{dists} is a vector of distances between subject plant and the potential competitors, \code{dranks} are the distance ranks, and \code{par} receives the value of the \code{kerpar} argument if not \code{NULL}. It must return a numeric vector with the same length as \code{dists}. Examples are provided in the functions \code{\link{powers_ker}}, etc. (see \link{kernel}).
+Competition kernel function for computing the effect of competitor \eqn{j} on the subject plant \eqn{i}. Must yake arguments \code{(imarks, jmarks, dists, dranks)} or \code{(imarks, jmarks, dists, dranks, par)}, where \code{imarks} are the marks for the subject plant (a 1-row data frame), \code{jmarks} is a data frame with the marks of the potential competitors, \code{dists} is a vector of distances between subject plant and the potential competitors, \code{dranks} are the distance ranks, and \code{par} receives the value of the \code{kerpar} argument if not \code{NULL}. It must return a numeric vector with the same length as \code{dists}. Examples are provided in the functions \code{\link{powers_ker}()}, etc. (see \link{kernel}).
 }
   \item{kerpar}{
 %%     ~~Describe \code{kerpar} here~~

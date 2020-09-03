@@ -36,7 +36,7 @@ Either a pixel image (class \code{im}), or a function, or other object that can 
 }
   \item{influence}{
 %%     ~~Describe \code{influence} here~~
-Function for computing influence values. Must take arguments \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{infpar} argument. Examples are provided in the functions \code{\link{tass_inf}}, etc. (see \link{influence}). Default: \code{\link{gnomon_inf}}.
+Function for computing influence values. Must take arguments \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{infpar} argument. Examples are provided in the functions \code{\link{tass_inf}()}, etc. (see \link{influence}). Default: \code{\link{gnomon_inf}}.
 }
   \item{infpar}{
 %%     ~~Describe \code{infpar} here~~
@@ -48,7 +48,7 @@ Asymmetry parameter \eqn{\alpha} in the allotment function. Default is \code{Inf
 }
   \item{efficiency}{
 %%     ~~Describe \code{efficiency} here~~
-Efficiency function for weighting the point-wise resource uptake. Must take arguments \code{(dx, dy, marks)} or \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{effpar} argument if not \code{NULL}. Examples are provided in the functions \code{\link{tass_eff}}, etc. (see \link{efficiency}). The default is \code{\link{flat_eff}}, no weighting.
+Efficiency function for weighting the point-wise resource uptake. Must take arguments \code{(dx, dy, marks)} or \code{(dx, dy, marks, par)}, where \code{dx} is a vector of points-to plant x-distances, \code{dy} is a vector of points-to plant y-distances, \code{marks} are the plant marks, and \code{par} receives the value of the \code{effpar} argument if not \code{NULL}. Examples are provided in the functions \code{\link{tass_eff}()}, etc. (see \link{efficiency}). The default is \code{\link{flat_eff}}, no weighting.
 }
   \item{effpar}{
 %%     ~~Describe \code{effpar} here~~
@@ -69,7 +69,7 @@ If \code{TRUE}, the centroid of the plant assimilation distribution is also comp
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-\code{assimilation} and \code{assimilation_pix} are functionally equivalent, but the code in \code{assimilation_pix} is somewhat clearer and slower. It may be useful for documentation purposes, and as a basis for user modification.
+\code{assimilation()} and \code{assimilation_pix()} are functionally equivalent, but the code in \code{assimilation_pix()} is somewhat clearer and slower. It may be useful for documentation purposes, and as a basis for user modification.
 
 Computation starts with a resource intensity map at a spatial resolution given by \code{pixsize}. Typically the resource distribution is assumed to be uniform (the default). Plants exert competitive pressure depending on size and distance, described by the \code{\link{influence}} function. The resource available at each pixel is allotted to plants according to their influence and to an allotment rule parametrized by \code{asym}. Finally, the resource uptake is weighted by the \code{\link{efficiency}} function, and is spatially integrated to obtain the plant's assimilation index. Besides size, influence and efficiency functions can include other plant attributes, such as species.
 }

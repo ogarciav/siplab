@@ -11,7 +11,7 @@ Competition Kernel Functions
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Functions representing the effect of a competitor on a subject plant, depending on distance and plant sizes (marks). For use in \code{\link{pairwise}}.
+Functions representing the effect of a competitor on a subject plant, depending on distance and plant sizes (marks). For use in \code{\link{pairwise}()}.
 
 Note: In previous versions of \pkg{siplab} the function names had
 \code{.ker} in place of \code{_ker}.
@@ -46,16 +46,16 @@ List of parameters.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} are taken from the argument \code{kerpar} of \code{pairwise}, if not \code{NULL}.
+The values of \code{par} are taken from the argument \code{kerpar} of \code{pairwise()}, if not \code{NULL}.
 
 \code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
-\code{powers_ker} is a general form that includes many examples from the literature. If \eqn{S_i}{Si} is the size of the subject plant, \eqn{S_j}{Sj} the size of the competitor, and \eqn{R} is the distance between them, then this kernel is \eqn{(S_j^{p_j} / S_i^{p_i}) / R^{p_r}}{(Sj^pj / Si^pi) / R^pr}. For instance, the popular Hegyi's index corresponds to \code{pi=1, pj=1, pr=1}.
+\code{powers_ker()} is a general form that includes many examples from the literature. If \eqn{S_i}{Si} is the size of the subject plant, \eqn{S_j}{Sj} the size of the competitor, and \eqn{R} is the distance between them, then this kernel is \eqn{(S_j^{p_j} / S_i^{p_i}) / R^{p_r}}{(Sj^pj / Si^pi) / R^pr}. For instance, the popular Hegyi's index corresponds to \code{pi=1, pj=1, pr=1}.
 This and other examples could be coded directly if computational efficiency is important, see the  example below.
 
-\code{staebler_ker} is the width of the overlap of zones of influence (ZOI), used by Staebler in 1951. Assumes that the ZOI radius is \eqn{k S^p}, where \eqn{S} is size.
+\code{staebler_ker()} is the width of the overlap of zones of influence (ZOI), used by Staebler in 1951. Assumes that the ZOI radius is \eqn{k S^p}, where \eqn{S} is size.
 
-\code{spurr_ker} is an example of an index that depends on distance ranks: equations (9.5a), (9.5b) of Burkhart and \enc{Tomé}{Tome} (2012).
+\code{spurr_ker()} is an example of an index that depends on distance ranks: equations (9.5a), (9.5b) of Burkhart and \enc{Tomé}{Tome} (2012).
 
 Competition kernels seem to be limited only by the researchers imagination. Others can be written following these examples.
 }
