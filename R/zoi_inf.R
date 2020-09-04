@@ -1,4 +1,4 @@
-zoi.inf <-
+zoi_inf <-
 function(dx, dy, marks, par=list(k=0.2, smark=1)) {
 # ZOI influence function  1 if R < k s, 0 otherwise
     with(as.list(par),

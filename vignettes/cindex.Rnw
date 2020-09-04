@@ -1,0 +1,153 @@
+% Compile with 'R CMD Sweave xx.Rnw'
+%   or 'Rscript -e "library(knitr);knit(xx.Rnw)"'
+% In the package DESCRIPTION file specify:
+%   VignetteBuilder: knitr
+%   Suggests: knitr
+% For RStudio installation to compile vignettes use
+%   'devtools::install(build_vignettes = TRUE)'
+
+\documentclass[12]{article}
+
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{1. Computing Hegyi's (and other) Competition Indices}
+
+\usepackage[utf8]{inputenc}
+\usepackage{charter,inconsolata}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{pdfstartview={FitH -32768},pdfborder={0 0 0},
+            bookmarksopen}
+
+% --- math  ---
+\usepackage{amsmath,bm}
+\newcommand{\vc}[1]{\bm{#1}}
+\newcommand{\mat}[1]{{\mathrm #1}}  % or \bf
+\newcommand{\der}[2]{\frac{{\mathrm d}#1}{{\mathrm d}#2}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{{\mathrm d}#1/{\mathrm d}#2}
+\newcommand{\dd}{\,{\mathrm d}}
+%\newcommand{\mod}[1]{_{(\mbox{\scriptsize mod }#1)}} % see also pmod
+\newcommand{\diag}{\mathop{\mathgroup\symoperators diag}\nolimits}
+% or \newcommand{\diag}{\,\mbox{diag}}
+\newcommand{\abs}{\mathop{\mathgroup\symoperators abs}\nolimits}
+% or \newcommand{\abs}{\mbox{abs}}
+\providecommand{\e}{\mathrm e} % included in amsmath?
+
+% ---  bibliography  ---
+\usepackage{natbib}
+%default:  \bibpunct{(}{)}{;}{a}{,}{,}
+%\bibliographystyle{elsart-harv}
+
+\hypersetup{
+ pdfauthor={Oscar Garcia},%
+ pdftitle={{TITLE}%
+ 1. Computing Hegyi's (and other) Competition Indices
+}%
+%%,pdfkeywords={}%
+}
+
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+\title{Computing Hegyi's (and other) Competition Indices}
+\author{\pkg{siplab}, Vignette \#1}  % Oscar Garc\'ia
+\date{} % Draft, \today}
+
+\begin{document}
+\maketitle
+
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+options(formatR.arrow=TRUE,width=67)
+@
+
+The competition index of \citet{hegyi} is one of the most popular in the forest modelling literature. I show here how to compute it with \pkg{siplab}. Pointers are also given for computing any other index based on pairwise tree interactions. These are the most common indices in individual-tree distance-dependent (\emph{aka} spatially explicit) growth models, and can be handled by function \code{pairwise()}.
+
+
+\section*{Data}
+\label{sec:data}
+
+If not already available, install \pkg{siplab} with \code{install.packages("siplab")} or through clicking on the appropriate GUI menus. This also installs the required \pkg{spatstat} package.
+
+Let us use the \code{spruces} data set included in \pkg{spatstat}. It contains measurements for 134 trees in a 56$\times$38 m sample plot. These data are already in the required \code{ppp} format, but for this example pretend that they are given as a simple data frame called \code{trees}:
+<<>>=
+library(siplab)
+trees <- as.data.frame(spruces)
+summary(trees)
+@
+\noindent
+Typically, the data would have been read from a data file by a command such as \code{trees <- read.csv("data.csv")}. The \code{x} and \code{y} columns are tree coordinates, in meters, and \code{marks} are diameters at breast height (dbh), also in meters. For a more conventional appearance, rename and convert the diameters to centimeters:
+<<>>=
+names(trees)[3] <- "dbh"
+trees$dbh <- trees$dbh * 100
+head(trees)
+@
+\noindent
+
+Now, for computations in \pkg{siplab}, we need to convert (back) the data to the form of a \pkg{spatstat} point pattern object of class \code{ppp}. This is done with function \code{ppp()}, passing as arguments the coordinate vectors, the plot dimensions (``window''), and the marks (dbh):
+<<>>=
+trees <- ppp(trees$x, trees$y, c(0,56), c(0,38), marks=trees$dbh)
+summary(trees)
+@
+\noindent
+The plot has been specified by the $x$-range 0 to 56 and the $y$-range 0 to 38. It is also possible to have more than one mark, for instance, diameter and height in the data set \code{finpines}. In that case \code{marks} is a data frame.  In addition to dimensions, it may be useful to include, for instance, tree and species codes.
+
+An alternative is to use instead \code{trees <- as.ppp(trees, c(0,56.0,38))}.
+
+
+\section*{The index}
+\label{sec:index}
+
+The commonly used form of Hegyi's index for a target tree $i$ is
+\begin{equation} \label{eq:hegyi}
+    C_i = \sum_j \frac{D_j / D_i}{R_{ij}} \;,
+\end{equation}
+where $D_i$ and $D_j$ are the dbh of the target tree and the dbh of competitor $j$, respectively, and $R_{ij}$ is the distance between trees $i$ and $j$. The sum is over the ``competitors'' $j$ of tree $i$. In the case of Hegyi's index, competitors are defined as all the trees that are within a given distance $R_{\mbox{max}}$ from the target tree.
+
+This is an example of the class of competition indices handled by function \code{pairwise()}. These are based on some function of sizes and distance for pairs of trees (hence ``pairwise''). In \pkg{siplab} the function is called a \emph{kernel}. The kernel values for the pairs formed by the target tree and each of its competitors are added up. In general, competitors may be defined as those trees within some radius around the target, as in this instance (\code{maxR} = $R_{\mbox{max}}$), or as the $n$ nearest neighbors (\code{maxN} = $n$), or in some other way through a \code{select} function. 
+
+Here we can use a built-in kernel called \code{powers\_ker()}, which represents the general form
+\begin{equation} \label{eq:kernel}
+    \frac{S_j^{p_j} / S_i^{p_i}}{R_{ij}^{p_r}} \;,
+\end{equation}
+where $S$ is some measure of size.
+Hegyi's index corresponds to the special case $p_i = p_j = p_r = 1$. Type \code{?kernel} for other built-ins or for how to write your own.
+
+Thus, choosing 6 meters for $R_{\mbox{max}}$, the index can be obtained from
+<<>>=
+hegyi <- pairwise(trees, maxR=6, kernel=powers_ker,
+    kerpar=list(pi=1, pj=1, pr=1, smark=1))
+@
+\noindent
+The list \code{kerpar} specifies the kernel parameter values and the size variable. That is,  $p_i, p_j, p_r$  in \eqref{eq:kernel}, and the first (and only) mark. Actually, \code{kerpar} could be omitted here because these values happen to be the default for \code{powers\_ker()}. The computed indices are returned as an additional column \code{cindex} in the marks:
+<<>>=
+head(marks(hegyi))
+@
+\noindent
+
+In the original article, Hegyi added 1 foot to the distance in the denominator \citep{hegyi}. See the Example in \code{?kernel} for a kernel function specific to this case. Use it as \code{pairwise(trees, maxR=6, kernel=hegyiorig\_ker)}, no \code{kerpar} needed.
+
+
+\section*{Edge effects}
+\label{sec:edge}
+
+Trees near edges tend to have abnormally low competition indices because competitors outside the plot are missing. Therefore, one may want to exclude such trees from the results. The \code{edges()} function can be used to keep only trees not closer than a given distance from the edges, e.g., 6 m:
+<<>>=
+hegyi_trim <- edges(hegyi, -6)
+summary(hegyi_trim)
+@
+\noindent
+
+An alternative edge correction method starts by faking a surround through translations of the real plot. Only part of the expansion is usually needed, in this instance up to 6 m around the real plot. This can be done with \code{edges(trees, 6)}. After computing the competition indices in the expanded plot, the result is trimmed to the original plot size with \code{edges(hegyi, -6)}. See \code{?edges} for details.
+
+
+\begin{thebibliography}{99}
+\bibitem[Hegyi(1974)Hegyi]{hegyi} Hegyi, Frank. (1974) \emph{A Simulation Model for Managing Jack-pine Stands}. P. 74--90 in Fries, J. (Ed.) \emph{Growth Models for Tree and Stand Simulation}. Royal College of Forestry, Department of Forest Yield Research, Research Notes 30. Stockholm, Sweden. 
+\end{thebibliography}
+
+\bigskip\noindent\today
+
+%\bibliography{} \addcontentsline{toc}{section}{References}
+\end{document}

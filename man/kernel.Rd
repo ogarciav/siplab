@@ -2,25 +2,28 @@
 \name{kernel}
 \alias{kernel}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\alias{powers.ker}
-\alias{spurr.ker}
-\alias{staebler.ker}
+\alias{powers_ker}
+\alias{spurr_ker}
+\alias{staebler_ker}
 \title{
 %%  ~~function to do ... ~~
 Competition Kernel Functions
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Functions representing the effect of a competitor on a subject plant, depending on distance and plant marks. For use in \code{\link{pairwise}}.
+Functions representing the effect of a competitor on a subject plant, depending on distance and plant sizes (marks). For use in \code{\link{pairwise}()}.
+
+Note: In previous versions of \pkg{siplab} the function names had
+\code{.ker} in place of \code{_ker}.
 }
 \usage{
-powers.ker(imarks, jmarks, dists, dranks, par = list(pi=1, pj=1,
+powers_ker(imarks, jmarks, dists, dranks, par = list(pi=1, pj=1,
     pr=1, smark = 1))
 
-staebler.ker(imarks, jmarks, dists, dranks, par = list(k=0.1, p=1,
+staebler_ker(imarks, jmarks, dists, dranks, par = list(k=0.1, p=1,
     smark=1))
 
-spurr.ker(imarks, jmarks, dists, dranks, par = list(type=1,
+spurr_ker(imarks, jmarks, dists, dranks, par = list(type=1,
     smark=1))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -43,17 +46,18 @@ List of parameters.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
-The values of \code{par} must be given in the argument \code{kerpar} of \code{pairwise}, they are shown here as examples.
+The values of \code{par} are taken from the argument \code{kerpar} of \code{pairwise()}, if not \code{NULL}.
 
-\code{smark} in \code{par} indicates the location of the plant size variable in \code{marks}. It can be a data frame column number, or a string id like "dbh".
+\code{smark} in \code{par} must be 1 or \dQuote{mark} if there is only one mark. If the marks are a data frame, \code{smark} must be the number or name of the column with the plant size variable.
 
-Competition kernels seem to be limited only by the researchers imagination.
-\code{powers.ker} is a general form that includes many examples from the literature. If \eqn{S_i}{Si} is the size of the subject plant, \eqn{S_j}{Sj} the size of the competitor, and \eqn{R} is the distance between them, then this kernel is \eqn{(S_j^{p_j} / S_i^{p_i}) / R^{p_r}}{(Sj^pj / Si^pi) / R^pr}. For instance, the popular Hegyi's index corresponds to \code{pi=1, pj=1, pr=1}.
+\code{powers_ker()} is a general form that includes many examples from the literature. If \eqn{S_i}{Si} is the size of the subject plant, \eqn{S_j}{Sj} the size of the competitor, and \eqn{R} is the distance between them, then this kernel is \eqn{(S_j^{p_j} / S_i^{p_i}) / R^{p_r}}{(Sj^pj / Si^pi) / R^pr}. For instance, the popular Hegyi's index corresponds to \code{pi=1, pj=1, pr=1}.
 This and other examples could be coded directly if computational efficiency is important, see the  example below.
 
-\code{staebler.ker} is the width of the overlap of zones of influence (ZOI), used by Staebler in 1951. Assumes that the ZOI radius is \eqn{k S^p}, where \eqn{S} is size.
+\code{staebler_ker()} is the width of the overlap of zones of influence (ZOI), used by Staebler in 1951. Assumes that the ZOI radius is \eqn{k S^p}, where \eqn{S} is size.
 
-\code{spurr.ker} is an example of an index that depends on distance ranks: equations (9.5a), (9.5b) of Burkhart and \enc{Tomé}{Tome} (2012).
+\code{spurr_ker()} is an example of an index that depends on distance ranks: equations (9.5a), (9.5b) of Burkhart and \enc{Tomé}{Tome} (2012).
+
+Competition kernels seem to be limited only by the researchers imagination. Others can be written following these examples.
 }
 \value{
 %%  ~Describe the value returned
@@ -65,7 +69,7 @@ Vector of length equal to the length of \code{dists}.
 }
 \references{
 %% ~put references to the literature/web site here ~
-\url{http://forestgrowth.unbc.ca/siplab}
+\url{https://github.com/ogarciav/siplab}
 
 Burkhart, H. E. and \enc{Tomé}{Tome}, M. (2012) \emph{Modeling Forest Trees and Stands}. Springer.
 
@@ -87,9 +91,9 @@ Oscar \enc{García}{Garcia}.
 }
 \examples{
 # Originally Hegyi added one foot to the distance:
-hegyi.orig <- function(imarks, jmarks, dists, dranks, par) {
-# Assume coordinates in meters, and that dbh is labeled 'dbh'
-    (jmarks$dbh / imarks$dbh) / (dists + 0.30481)
+hegyiorig_ker <- function(imarks, jmarks, dists, ...) {
+# Assume coordinates in meters, and a single mark (dbh)
+    (jmarks$mark / imarks$mark) / (dists + 0.30481)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -1,11 +1,11 @@
-assimilation.pix <-
+assimilation_pix <-
 function(plants, # marked point pattern (class ppp)
          pixsize=0.2, # resolution (pixel size)
          resource=1, # resource map
-         influence=gnomon.inf, # influence function
-         infpar=list(a=1, b=4, smark=1), # influence function parameter(s)
+         influence=gnomon_inf, # influence function
+         infpar=NULL, # influence function parameter(s)
          asym=Inf, # asymmetry parameter
-         efficiency=flat.eff, # efficiency function
+         efficiency=flat_eff, # efficiency function
          effpar=NULL, # efficiency function parameter(s)
          plot=TRUE, # plot influences map?
          afree=FALSE, # include free-growing assimilation in output?
@@ -19,8 +19,13 @@ function(plants, # marked point pattern (class ppp)
     yplant <- coords(plants)$y
     marks <- as.data.frame(marks(plants))
     # First pass, acccumulate partition function denominator
-    infi <- function(x, y) influence(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = infpar)
+    if(is.null(infpar)) { # use the influence default parameters, if any
+        infi <- function(y, x) pmax(0, influence(dx = x - xplant[i],
+            dy = y - yplant[i], marks = marks[i, ]))
+    } else { # pass the given influence function parameters
+        infi <- function(y, x) pmax(0, influence(dx = x - xplant[i],
+            dy = y - yplant[i], marks = marks[i, ], par = infpar))
+    }
     denom <- as.im(0, resource)
     for(i in 1:npoints(plants)) {
         phi <- as.im(infi, resource)
@@ -30,13 +35,18 @@ function(plants, # marked point pattern (class ppp)
     }
     if(plot) plot(denom, main=NULL)
     # Second pass, get assimilation index for each plant
-    effi <- function(x, y) efficiency(dx = x - xplant[i], dy = y - yplant[i],
-        marks = marks[i, ], par = effpar)
+    if(is.null(effpar)) {
+        effi <- function(x, y) pmax(0, efficiency(dx = x - xplant[i],
+            dy = y - yplant[i], marks = marks[i, ]))
+    } else {
+        effi <- function(x, y) pmax(0, efficiency(dx = x - xplant[i],
+            dy = y - yplant[i], marks = marks[i, ], par = effpar))
+    }
     for(i in 1:npoints(plants)) {
         phi <- as.im(infi, resource)
         if(is.infinite(asym)) part <- eval.im((phi >= denom) * (phi > 0))
         else if(asym > 0) part <- eval.im(phi^asym / (denom + (denom == 0)))
-                # (avoid division by 0)
+                                                    # (avoid division by 0)
         else part <- eval.im((phi > 0) / (denom + (denom == 0))) # asym == 0
         eff <- as.im(effi, resource)
         assim <- eval.im(eff * part * resource)

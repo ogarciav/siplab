@@ -1,4 +1,4 @@
-gnomon.eff <-
+gnomon_eff <-
 function(dx, dy, marks, par=list(a=1, b=4, smark=1)) {
 # Gnomonic efficiency functions  1 - b R^a /s
     with(as.list(par),
