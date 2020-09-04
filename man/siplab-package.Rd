@@ -29,7 +29,7 @@ The \code{\link{edges}()} function is useful for handling edge effects.
 
 Some sample data sets are included, see links below.
  
-The package is built on top of the \pkg{spatstat} library (\url{http://www.spatstat.org}), which needs to be installed first.
+The package is built on top of the \pkg{spatstat} library (\url{http://spatstat.org/}), which needs to be installed first.
 }
 \author{
 Oscar \enc{García}{Garcia}
@@ -48,7 +48,7 @@ Maintainer: O. Garcia <garcia@dasometrics.net>
 
 \url{https://github.com/ogarciav/siplab}.
 
-\url{http://forestgrowth.unbc.ca/siplab} (no longer maintained).
+\url{http://forestgrowth.unbc.ca/siplab/} (no longer maintained).
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 %\keyword{ package }
