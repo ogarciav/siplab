@@ -1,11 +1,12 @@
 Package: siplab
 Title: Spatial Individual-Plant Modelling
-Version: 1.5
+Version: 1.6
 Author: Oscar Garcia <https://orcid.org/0000-0002-8995-1341>
 Maintainer: Oscar Garcia <garcia@dasometrics.net>
 Description: A platform for computing competition indices and experimenting
     with spatially explicit individual-based vegetation models.
-Depends: spatstat (>= 1.36-0)
+Depends: spatstat (>= 2.0-0)
+Imports: spatstat.geom
 License: GPL (>= 2)
 LazyData: true
 Suggests: knitr
