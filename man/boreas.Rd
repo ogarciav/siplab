@@ -30,7 +30,7 @@ Each data set is a \pkg{spatstat} marked point pattern object (class \code{ppp})
 %}
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~
-\url{https://doi.org/10.3334/ORNLDAAC/359}
+\doi{10.3334/ORNLDAAC/359}
 }
 \references{
 %%  ~~ possibly secondary sources and usages ~~
@@ -39,7 +39,7 @@ data [online]. Oak Ridge National Laboratory Distributed Active
 Archive Center, Oak Ridge, Tennessee. Available from
 \url{http://daac.ornl.gov}.
 
-\enc{García}{Garcia}, O. (2006) Scale and spatial structure effects on tree size distributions: Implications for growth and yield modelling. \emph{Canadian Journal of Forest Research} \bold{36}(11), 2983--2993. \url{https://www.researchgate.net/publication/237866519}.
+\enc{García}{Garcia}, O. (2006) Scale and spatial structure effects on tree size distributions: Implications for growth and yield modelling. \emph{Canadian Journal of Forest Research} \bold{36}(11), 2983--2993. \doi{10.1139/x06-116}.
 }
 \examples{
 summary(boreasNP)

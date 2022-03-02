@@ -6,6 +6,7 @@
 \alias{tass_eff}
 \alias{gates_eff}
 \alias{gnomon_eff}
+\alias{power_eff}
 \title{
 %%  ~~function to do ... ~~
 Efficiency Functions
@@ -26,6 +27,8 @@ tass_eff(dx, dy, marks, par = list(b = 3.52 * 0.975, c = 6.1,
 gates_eff(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
 
 gnomon_eff(dx, dy, marks, par = list(a = 1, b = 4, smark = 1))
+
+power_eff(dx, dy, marks = NULL, par = list(a = 1, b = 0.25, smark = NULL))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -59,6 +62,8 @@ The values of \code{par} are taken from the argument \code{effpar} of \code{assi
 \code{flat_eff()} returns 1, independently of plant size or distance.
 
 \code{tass_eff()}, \code{gates_eff()}, and \code{gnomon_eff()} are proportional to their influence function counterparts (see \code{\link{influence}}), scaled to be 1 at the origin.
+
+\code{power_eff()} is \eqn{\max\{0, \, 1 - b R^a\}}{max{0, 1 - b R^a}}, where \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)} is the plant-to-point distance. It does not depend on plant size, as in Garcia (2022). Parameters \code{marks} and \code{smarks} are ignored.
 }
 \value{
 %%  ~Describe the value returned
@@ -73,6 +78,9 @@ Vector of efficiency values, of length equal to the length of dx and dy.
 \url{https://github.com/ogarciav/siplab}
 
 \enc{García}{Garcia}, O. \dQuote{A generic approach to spatial individual-based modelling and simulation of plant communities}. Mathematical and Computational Forestry and Nat.-Res. Sci. (MCFNS) 6(1), 36-47. 2014.
+
+\enc{García}{Garcia}, O. \dQuote{Plasticity as a link between spatially explicit, distance-independent, and whole-stand forest growth models}. Forest Science 68(1), 1-7. 2022.
+
 }
 \author{
 %%  ~~who you are~~
