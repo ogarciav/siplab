@@ -63,7 +63,7 @@ The values of \code{par} are taken from the argument \code{effpar} of \code{assi
 
 \code{tass_eff()}, \code{gates_eff()}, and \code{gnomon_eff()} are proportional to their influence function counterparts (see \code{\link{influence}}), scaled to be 1 at the origin.
 
-\code{power_eff()} is \eqn{\max\{0, \, 1 - b R^a\}}{max{0, 1 - b R^a}}, where \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)} is the plant-to-point distance. It does not depend on plant size, as in Garcia (2022). Parameters \code{marks} and \code{smarks} are ignored.
+\code{power_eff()} is \eqn{\max\{0, \, 1 - b R^a\}}{max{0, 1 - b R^a}}, where \eqn{R = \sqrt{\mathrm{dx}^2 + \mathrm{dy}^2}}{R = sqrt(dx^2 + dy^2)} is the plant-to-point distance. It does not depend on plant size, as in Garcia (2022). On second thoughts, this might make more sense than the functions above. Parameters \code{marks} and \code{smarks} are ignored.
 }
 \value{
 %%  ~Describe the value returned

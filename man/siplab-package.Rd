@@ -13,7 +13,7 @@ A platform for experimenting with spatially explicit individual-based plant mode
 \tabular{ll}{
 Package: \tab siplab\cr
 Type: \tab Package\cr
-Version: \tab 1.5\cr
+Version: \tab 1.6\cr
 License: \tab GPL\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
