@@ -52,11 +52,11 @@ Note that their first example (fixed radius) is implemented by giving a value to
 
 \code{powlinear_sel()} is a general form that covers all the other examples in Burkhart and \enc{Tomé}{Tome} (2012) by choosing specific parameters values  (except for the \emph{competition elimination angle}, which depends on relative positions among competitors and not only on distances).
 It implements a condition \code{distance < ki * sizei^p + kj * sizej^p + r0}, with the following special cases:
-\describe{
-\item{ }{Multiple of crown radius: \code{kj=0, p=1, r0=0, smark="crownwidth"}.}
-\item{ }{Angle count sampling: \code{ki=0, p=1, r0=0, smark="dbh"}.}
-\item{ }{Areas of influence overlap: \code{ki=kj, p=1, r0=0}, if the radius is a linear function of size (\code{p} not 1 for an allometric relationship).}
-\item{ }{Vertical search cone: If the height of the cone vertex is constant, proportional to tree height, or more generally some linear function \eqn{c_1 h_i + c_2}, then \code{ki} = \eqn{- c_1 / \tan(90 - \beta/2)}, \code{kj} = \eqn{1 / \tan(90 - \beta/2)}, \code{p=1}, \code{r0} = \eqn{- c_2 / \tan(90 - \beta/2)}, \code{smark="height"}.}  
+\itemize{
+\item Multiple of crown radius: \code{kj=0, p=1, r0=0, smark="crownwidth"}.
+\item Angle count sampling: \code{ki=0, p=1, r0=0, smark="dbh"}.
+\item Areas of influence overlap: \code{ki=kj, p=1, r0=0}, if the radius is a linear function of size (\code{p} not 1 for an allometric relationship).
+\item Vertical search cone: If the height of the cone vertex is constant, proportional to tree height, or more generally some linear function \eqn{c_1 h_i + c_2}, then \code{ki} = \eqn{- c_1 / \tan(90 - \beta/2)}, \code{kj} = \eqn{1 / \tan(90 - \beta/2)}, \code{p=1}, \code{r0} = \eqn{- c_2 / \tan(90 - \beta/2)}, \code{smark="height"}.
 }
 These and other examples could be coded directly if computational efficiency is important.
 }
