@@ -4,7 +4,7 @@ An R platform for computing competition indices and experimenting with spatially
 
 ![influence](infl-small.jpg)
 
-* **Master** branch: Current _siplab_. Version 1.6 on CRAN,  <https://cran.r-project.org/package=siplab> (tag v1.6), plus any changes to appear in the next version.
+Current stable _siplab_. Version 1.6 on CRAN:  <https://cran.r-project.org/package=siplab>
 
 ### Installation
 
